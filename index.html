@@ -1446,6 +1446,99 @@ function clearConverter() {
 }
 
 // ==================== ЭКСПОРТ В EXCEL ====================
+// ==================== ЭКСПОРТ ТОВАРОВ ЧЕЛОВЕКА ====================
+function exportPersonToExcel(personName) {
+  const db = loadDB();
+  const allKeys = Object.keys(db);
+
+  // Фильтруем треки только этого человека
+  const keys = allKeys.filter(function(k) {
+    return (db[k].person || 'Без имени').trim() === personName;
+  });
+
+  if (keys.length === 0) {
+    showToast('У этого человека нет треков', 'warning');
+    return;
+  }
+
+  // Сортируем по дате добавления (новые сверху)
+  keys.sort(function(a, b) {
+    const ta = (db[a] && db[a].addedAt) || 0;
+    const tb = (db[b] && db[b].addedAt) || 0;
+    return tb - ta;
+  });
+
+  // Заголовки
+  const headers = ['№', 'Трек-номер', 'Вес (кг)', 'Количество (шт)', 'Что в треке', 'Дата добавления'];
+
+  // Строки
+  let totalWeight = 0;
+  let totalCount = 0;
+
+  const rows = keys.map(function(k, i) {
+    const p = db[k];
+    const w = parseFloat(p.weight) || 0;
+    const c = parseInt(p.count) || 0;
+    totalWeight += w;
+    totalCount += c;
+
+    let dateStr = '';
+    if (p.addedAt) {
+      const d = new Date(p.addedAt);
+      dateStr = d.toLocaleString('ru-RU', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+    }
+
+    return [
+      i + 1,
+      k,
+      formatWeight(p.weight) || '',
+      p.count || '',
+      p.desc || '',
+      dateStr
+    ];
+  });
+
+  // Экранирование CSV
+  function escapeCSV(val) {
+    const s = String(val == null ? '' : val);
+    if (s.indexOf(';') !== -1 || s.indexOf('"') !== -1 || s.indexOf('\n') !== -1) {
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+    return s;
+  }
+
+  const lines = [];
+  lines.push(headers.map(escapeCSV).join(';'));
+  rows.forEach(function(row) { lines.push(row.map(escapeCSV).join(';')); });
+
+  // Итоги внизу
+  lines.push(''); // пустая строка
+  lines.push(escapeCSV('ИТОГО:') + ';' + escapeCSV(keys.length + ' треков') + ';' + escapeCSV(formatTotalWeight(totalWeight)) + ';' + escapeCSV(totalCount) + ';' + escapeCSV('') + ';' + escapeCSV(''));
+  lines.push(escapeCSV('Общий вес:') + ';' + escapeCSV(formatTotalWeight(totalWeight) + ' кг') + ';' + escapeCSV('') + ';' + escapeCSV('') + ';' + escapeCSV('') + ';' + escapeCSV(''));
+  lines.push(escapeCSV('Всего товаров:') + ';' + escapeCSV(totalCount + ' шт') + ';' + escapeCSV('') + ';' + escapeCSV('') + ';' + escapeCSV('') + ';' + escapeCSV(''));
+
+  const csv = '\uFEFF' + lines.join('\n');
+
+  // Имя файла — с именем человека и датой
+  const safeName = personName.replace(/[^a-zA-Zа-яА-Я0-9]/g, '_');
+  const now = new Date();
+  const dateStr = now.getFullYear() + '-' +
+    String(now.getMonth() + 1).padStart(2, '0') + '-' +
+    String(now.getDate()).padStart(2, '0');
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'posylki_' + safeName + '_' + dateStr + '.csv';
+  link.click();
+  URL.revokeObjectURL(url);
+
+  showToast('Экспортировано ' + keys.length + ' треков ' + personName, 'success');
+}
 function exportToExcel() {
   const db = loadDB();
   const keys = Object.keys(db);
