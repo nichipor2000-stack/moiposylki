@@ -1252,8 +1252,6 @@ function openPersonDetail(name) {
 
   content += '<h3 style="font-size:15px;color:var(--text-secondary);margin:16px 0 8px;text-transform:uppercase;">📦 Перечень треков</h3>';
 
-  content += '<h3 style="font-size:15px;color:var(--text-secondary);margin:16px 0 8px;text-transform:uppercase;">📦 Перечень треков</h3>';
-
   tracks.sort(function(a, b) {
     const ta = (db[a] && db[a].addedAt) || 0;
     const tb = (db[b] && db[b].addedAt) || 0;
