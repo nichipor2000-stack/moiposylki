@@ -1509,6 +1509,138 @@ function exportToExcel() {
 
   showToast('Экспортировано ' + keys.length + ' треков', 'success');
 }
+  // ==================== РЕЗЕРВНАЯ КОПИЯ ====================
+function saveBackup() {
+  const db = loadDB();
+  const history = loadHistory();
+  const recent = loadRecent();
+
+  const data = {
+    version: 1,
+    appName: 'Мои посылки',
+    createdAt: new Date().toISOString(),
+    packages: db,
+    history: history,
+    recent: recent
+  };
+
+  const json = JSON.stringify(data, null, 2);
+
+  const now = new Date();
+  const dateStr = now.getFullYear() + '-' +
+    String(now.getMonth() + 1).padStart(2, '0') + '-' +
+    String(now.getDate()).padStart(2, '0') + '_' +
+    String(now.getHours()).padStart(2, '0') + '-' +
+    String(now.getMinutes()).padStart(2, '0');
+
+  const blob = new Blob([json], { type: 'application/json;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'backup_posylki_' + dateStr + '.json';
+  link.click();
+  URL.revokeObjectURL(url);
+
+  const count = Object.keys(db).length;
+  showToast('Копия сохранена: ' + count + ' треков', 'success');
+}
+
+function restoreBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  if (!confirm('Загрузить резервную копию?\n\n⚠️ ВСЕ текущие данные будут ЗАМЕНЕНЫ на данные из файла.')) {
+    event.target.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!data || typeof data !== 'object') throw new Error('Неверный формат файла');
+      const packages = data.packages || data.db || {};
+      const history = data.history || [];
+      const recent = data.recent || [];
+      if (typeof packages !== 'object') throw new Error('В файле нет данных о посылках');
+
+      saveDB(packages);
+      saveHistory(history);
+      saveRecent(recent);
+
+      const count = Object.keys(packages).length;
+      showToast('Загружено ' + count + ' треков', 'success');
+
+      renderPackages();
+      renderHistory();
+      renderRecentScans();
+    } catch (err) {
+      showToast('Ошибка: ' + err.message, 'error');
+    }
+    event.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+// ==================== ЭКСПОРТ В EXCEL ====================
+function exportToExcel() {
+  const db = loadDB();
+  const keys = Object.keys(db);
+
+  if (keys.length === 0) {
+    showToast('Нет данных для экспорта', 'warning');
+    return;
+  }
+
+  keys.sort(function(a, b) {
+    const ta = (db[a] && db[a].addedAt) || 0;
+    const tb = (db[b] && db[b].addedAt) || 0;
+    return tb - ta;
+  });
+
+  const headers = ['№', 'Трек-номер', 'Для кого', 'Вес (кг)', 'Количество (шт)', 'Что в треке', 'Дата добавления'];
+  const rows = keys.map(function(k, i) {
+    const p = db[k];
+    let dateStr = '';
+    if (p.addedAt) {
+      const d = new Date(p.addedAt);
+      dateStr = d.toLocaleString('ru-RU', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+    }
+    return [i + 1, k, p.person || '', formatWeight(p.weight) || '', p.count || '', p.desc || '', dateStr];
+  });
+
+  function escapeCSV(val) {
+    const s = String(val == null ? '' : val);
+    if (s.indexOf(';') !== -1 || s.indexOf('"') !== -1 || s.indexOf('\n') !== -1) {
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+    return s;
+  }
+
+  const lines = [];
+  lines.push(headers.map(escapeCSV).join(';'));
+  rows.forEach(function(row) { lines.push(row.map(escapeCSV).join(';')); });
+
+  const csv = '\uFEFF' + lines.join('\n');
+  const now = new Date();
+  const dateStr = now.getFullYear() + '-' +
+    String(now.getMonth() + 1).padStart(2, '0') + '-' +
+    String(now.getDate()).padStart(2, '0');
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'posylki_' + dateStr + '.csv';
+  link.click();
+  URL.revokeObjectURL(url);
+
+  showToast('Экспортировано ' + keys.length + ' треков', 'success');
+}
+
 // ==================== УТИЛИТЫ ====================
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, function(c) {
