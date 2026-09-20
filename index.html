@@ -1242,11 +1242,15 @@ function openPersonDetail(name) {
     '<div class="person-detail-sub">Все треки этого человека</div>' +
     '</div>';
 
-  content += '<div class="person-detail-stats">' +
+    content += '<div class="person-detail-stats">' +
     '<div class="stat-card"><div class="num">' + tracks.length + '</div><div class="lbl">Треков</div></div>' +
     '<div class="stat-card"><div class="num">' + formatTotalWeight(totalWeight) + '</div><div class="lbl">Вес (кг)</div></div>' +
     '<div class="stat-card"><div class="num">' + totalCount + '</div><div class="lbl">Товаров</div></div>' +
     '</div>';
+
+  content += '<button class="success" onclick="exportPersonToExcel(\'' + escapeAttr(name) + '\')" style="margin-bottom:16px;">📊 Экспорт товаров ' + escapeHtml(name) + '</button>';
+
+  content += '<h3 style="font-size:15px;color:var(--text-secondary);margin:16px 0 8px;text-transform:uppercase;">📦 Перечень треков</h3>';
 
   content += '<h3 style="font-size:15px;color:var(--text-secondary);margin:16px 0 8px;text-transform:uppercase;">📦 Перечень треков</h3>';
 
