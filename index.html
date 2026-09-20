@@ -4,14 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#1e40af">
-<title>📦 Посылки</title>
+<title>📦 Мои посылки</title>
 <link rel="icon" type="image/png" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Мои посылки">
 <meta name="application-name" content="Мои посылки">
-<meta name="theme-color" content="#1e40af">
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <style>
@@ -28,27 +27,9 @@
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 20px; overflow-x: hidden; }
 
-  .welcome-screen { position: fixed; inset: 0; background: linear-gradient(160deg, #1e40af, #2563eb, #3b82f6); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
-  .welcome-card { background: white; border-radius: 24px; padding: 28px 22px; width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; }
-  .welcome-logo { font-size: 60px; margin-bottom: 12px; }
-  .welcome-title { font-size: 24px; font-weight: 800; color: var(--primary-dark); margin-bottom: 6px; }
-  .welcome-subtitle { font-size: 13px; color: var(--text-secondary); margin-bottom: 22px; }
-  .welcome-tabs { display: flex; gap: 6px; background: var(--bg); padding: 4px; border-radius: 12px; margin-bottom: 18px; }
-  .welcome-tab { flex: 1; padding: 10px; border-radius: 9px; font-size: 14px; font-weight: 700; color: var(--text-secondary); cursor: pointer; }
-  .welcome-tab.active { background: white; color: var(--primary); box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-  .welcome-error { background: var(--danger-light); color: var(--danger); font-size: 13px; font-weight: 600; padding: 10px 14px; border-radius: 10px; margin-top: 8px; text-align: left; }
-  .welcome-note { font-size: 11px; color: var(--text-secondary); margin-top: 16px; }
-
-  .greet-screen { position: fixed; inset: 0; background: linear-gradient(160deg, #1e40af, #2563eb, #3b82f6); z-index: 9998; display: flex; align-items: center; justify-content: center; padding: 20px; }
-  .greet-card { background: white; border-radius: 24px; padding: 40px 28px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-  .greet-emoji { font-size: 70px; margin-bottom: 16px; }
-  .greet-title { font-size: 22px; font-weight: 800; color: var(--primary-dark); margin-bottom: 8px; }
-  .greet-name { font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 20px; }
-  .greet-sub { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
-
   .app-header { background: linear-gradient(135deg, #1e40af, #2563eb, #3b82f6); color: white; padding: 16px; display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3); }
-  .menu-btn, .logout-btn, .theme-btn { background: rgba(255,255,255,0.15); border: none; color: white; width: 44px; height: 44px; border-radius: 12px; font-size: 20px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-  .menu-btn:active, .logout-btn:active, .theme-btn:active { background: rgba(255,255,255,0.35); }
+  .menu-btn, .theme-btn { background: rgba(255,255,255,0.15); border: none; color: white; width: 44px; height: 44px; border-radius: 12px; font-size: 20px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .menu-btn:active, .theme-btn:active { background: rgba(255,255,255,0.35); }
   .header-title { flex: 1; min-width: 0; }
   .header-title h1 { font-size: 18px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .header-title p { font-size: 12px; opacity: 0.85; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -94,11 +75,11 @@
 
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
   .stat-card { background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 14px 8px; border-radius: 14px; box-shadow: var(--shadow); text-align: center; }
-  .stat-card .num { font-size: 22px; font-weight: 800; color: var(--primary-dark); line-height: 1.2; }
+  .stat-card .num { font-size: 22px; font-weight: 800; color: var(--primary-dark); line-height: 1.2; word-break: break-all; }
   .stat-card .lbl { font-size: 11px; color: var(--text-secondary); font-weight: 600; margin-top: 4px; }
 
-  #reader-scan, #reader-add { width: 100%; border-radius: 20px; overflow: hidden; background: #000; min-height: 260px; box-shadow: var(--shadow-lg); }
-  #reader-scan video, #reader-add video { border-radius: 20px; }
+  #reader-scan { width: 100%; border-radius: 20px; overflow: hidden; background: #000; min-height: 260px; box-shadow: var(--shadow-lg); }
+  #reader-scan video { border-radius: 20px; }
   .scan-hint { text-align: center; color: var(--text-secondary); font-size: 12px; margin: 10px 0; }
   .recent-scans { margin-top: 12px; }
   .recent-scans h4 { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; }
@@ -143,7 +124,6 @@
   .person-mini-name { font-size: 11px; font-weight: 700; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 2px; }
   .person-mini-meta { font-size: 9px; color: var(--text-secondary); line-height: 1.3; }
 
-  /* Уведомления */
   #toast-container { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); z-index: 999999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; width: 90%; max-width: 400px; }
   .toast { background: white; border-radius: 14px; padding: 14px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 600; color: var(--text); pointer-events: auto; animation: toastIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); border-left: 5px solid var(--primary); cursor: pointer; position: relative; overflow: hidden; }
   .toast.success { border-left-color: var(--success); }
@@ -160,82 +140,55 @@
   @keyframes toastIn { from { opacity: 0; transform: translateY(-30px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
   @keyframes toastOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(-20px) scale(0.95); } }
   @keyframes toastProgress { from { width: 100%; } to { width: 0%; } }
-  body.dark .toast { background: #1e293b; color: #f1f5f9; }
 
-  /* Тёмная тема */
+  /* ============ ТЁМНАЯ ТЕМА ============ */
   body.dark {
-    --primary: #3b82f6; --primary-dark: #60a5fa; --primary-light: #1e3a5f;
+    --primary: #3b82f6; --primary-dark: #93c5fd; --primary-light: #1e3a5f;
     --success-light: #14532d; --danger-light: #7f1d1d;
-    --bg: #0f172a; --card: #1e293b; --text: #f1f5f9;
-    --text-secondary: #94a3b8; --border: #334155;
+    --bg: #0f172a; --card: #1e293b; --text: #f8fafc;
+    --text-secondary: #cbd5e1; --border: #334155;
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.3); --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
   }
   body.dark .app-header, body.dark .sidebar-header, body.dark .person-detail-header { background: linear-gradient(135deg, #0c1e3e, #1e3a8a, #1e40af); }
-  body.dark .welcome-screen, body.dark .greet-screen { background: linear-gradient(160deg, #0c1e3e, #1e3a8a, #1e40af); }
-  body.dark .welcome-card, body.dark .greet-card { background: #1e293b; color: #f1f5f9; }
-  body.dark .welcome-title, body.dark .greet-title, body.dark .greet-name, body.dark .card h3 { color: #60a5fa; }
-  body.dark input, body.dark textarea, body.dark select { background: #0f172a; color: #f1f5f9; border-color: #334155; }
-  body.dark .welcome-tabs { background: #0f172a; }
-  body.dark .welcome-tab.active { background: #1e293b; color: #60a5fa; }
+  body.dark .card h3, body.dark .person-detail-name, body.dark .welcome-title { color: #93c5fd; }
+  body.dark input, body.dark textarea, body.dark select { background: #0f172a; color: #f8fafc; border-color: #475569; font-weight: 600; }
+  body.dark input:focus, body.dark textarea:focus { border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); }
+  body.dark input::placeholder, body.dark textarea::placeholder { color: #94a3b8; }
   body.dark .stat-card { background: linear-gradient(135deg, #1e293b, #334155); }
-  body.dark .menu-item.active { background: #1e3a5f; color: #60a5fa; }
+  body.dark .stat-card .num { color: #93c5fd; }
+  body.dark .menu-item { color: #f1f5f9; }
+  body.dark .menu-item.active { background: #1e3a5f; color: #93c5fd; border-color: #3b82f6; }
   body.dark .converter-card { background: linear-gradient(135deg, #1e293b, #0f172a); }
+  body.dark .converter-title { color: #93c5fd; }
   body.dark .result-box { background: #0f172a; }
+  body.dark .result-value { color: #93c5fd; }
   body.dark .card.found { background: linear-gradient(to right, #14532d 0%, #1e293b 15%); }
   body.dark .card.notfound { background: linear-gradient(to right, #7f1d1d 0%, #1e293b 15%); }
-  body.dark .recent-item, body.dark .track-list-item, body.dark .person-mini { background: #1e293b; }
-  body.dark button.ghost { background: #1e293b; color: #60a5fa; border-color: #3b82f6; }
-  body.dark .empty { background: #1e293b; color: #94a3b8; }
+  body.dark .recent-item, body.dark .track-list-item, body.dark .person-mini { background: #1e293b; color: #f8fafc; }
+  body.dark .track-code { color: #93c5fd; }
+  body.dark .track-meta { color: #cbd5e1; }
+  body.dark .track-meta strong { color: #f8fafc; }
+  body.dark button.ghost { background: #1e293b; color: #93c5fd; border-color: #3b82f6; }
+  body.dark .empty { background: #1e293b; color: #cbd5e1; }
   body.dark .sidebar { background: #1e293b; }
+  body.dark .toast { background: #1e293b; color: #f8fafc; }
+  body.dark .person-mini-name { color: #f8fafc; }
+  body.dark .person-mini-meta { color: #cbd5e1; }
+  body.dark .sidebar-footer { color: #cbd5e1; }
+  body.dark .header-title p { color: #e0e7ff; }
 
   .hidden { display: none !important; }
 </style>
 </head>
 <body>
 
-<div class="welcome-screen" id="welcome-screen">
-  <div class="welcome-card">
-    <div class="welcome-logo">📦</div>
-    <h1 class="welcome-title">Мои посылки</h1>
-    <p class="welcome-subtitle">Войдите или создайте аккаунт</p>
-    <div class="welcome-tabs">
-      <div class="welcome-tab active" id="tab-login" onclick="switchWelcomeTab('login')">Вход</div>
-      <div class="welcome-tab" id="tab-register" onclick="switchWelcomeTab('register')">Регистрация</div>
-    </div>
-    <div id="welcome-login">
-      <input id="login-nick" placeholder="Ник" autocomplete="username">
-      <input id="login-pass" type="password" placeholder="Пароль" autocomplete="current-password">
-      <button onclick="doLogin()">🔓 Войти</button>
-    </div>
-    <div id="welcome-register" style="display:none;">
-      <input id="reg-nick" placeholder="Придумайте ник" autocomplete="off">
-      <input id="reg-pass" type="password" placeholder="Придумайте пароль" autocomplete="new-password">
-      <input id="reg-pass2" type="password" placeholder="Повторите пароль" autocomplete="new-password">
-      <button class="success" onclick="doRegister()">✅ Зарегистрироваться</button>
-    </div>
-    <div id="welcome-error" style="display:none;" class="welcome-error"></div>
-    <p class="welcome-note">Данные хранятся только на вашем устройстве</p>
-  </div>
-</div>
-
-<div class="greet-screen" id="greet-screen" style="display:none;">
-  <div class="greet-card">
-    <div class="greet-emoji">🎉</div>
-    <div class="greet-title">Добро пожаловать!</div>
-    <div class="greet-name" id="greet-name">—</div>
-    <div class="greet-sub">Рады видеть вас снова</div>
-    <button class="success" onclick="closeGreeting()" style="max-width:220px;margin:0 auto;">Продолжить ➜</button>
-  </div>
-</div>
-
-<header class="app-header" id="app-header" style="display:none;">
+<header class="app-header" id="app-header">
   <button class="menu-btn" onclick="openSidebar()">☰</button>
   <div class="header-title">
     <h1 id="header-title">📦 Сканер</h1>
     <p id="header-subtitle">Готов к работе</p>
   </div>
   <button class="theme-btn" onclick="toggleTheme()" id="theme-btn">🌙</button>
-  <button class="logout-btn" onclick="logout()">🚪</button>
 </header>
 
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
@@ -246,17 +199,16 @@
   </div>
   <div class="sidebar-body">
     <div class="menu-item active" data-menu="scan" onclick="switchMenu('scan')"><span class="menu-icon">📷</span> Сканер</div>
-    <div class="menu-item" data-menu="add-scan" onclick="switchMenu('add-scan')"><span class="menu-icon">📸</span> Добавление трека</div>
     <div class="menu-item" data-menu="add-manual" onclick="switchMenu('add-manual')"><span class="menu-icon">✍️</span> Добавить вручную</div>
     <div class="menu-item" data-menu="add-batch" onclick="switchMenu('add-batch')"><span class="menu-icon">📋</span> Треки к имени</div>
     <div class="menu-item" data-menu="converter" onclick="switchMenu('converter')"><span class="menu-icon">💱</span> Конвертер</div>
     <div class="menu-item" data-menu="history" onclick="switchMenu('history')"><span class="menu-icon">🕓</span> История</div>
     <div class="menu-item" data-menu="packages" onclick="switchMenu('packages')"><span class="menu-icon">📦</span> Посылки</div>
   </div>
-    <div class="sidebar-footer">Разработчик: <strong>Anna Nichipor</strong></div>
+  <div class="sidebar-footer">Разработчик: <strong>Anna Nichipor</strong></div>
 </aside>
 
-<main class="main-content" id="main-content" style="display:none;">
+<main class="main-content" id="main-content">
 
   <div id="screen-scan" class="screen">
     <div id="reader-scan"></div>
@@ -266,20 +218,6 @@
       <h4>Последние сканирования</h4>
       <div id="recent-list"></div>
     </div>
-  </div>
-
-  <div id="screen-add-scan" class="screen hidden">
-    <div class="card">
-      <h3>📁 Из галереи</h3>
-      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Загрузите фото штрих-кода</p>
-      <button class="orange" onclick="document.getElementById('photo-input').click()">📷 Выбрать фото</button>
-      <input type="file" id="photo-input" accept="image/*" style="display:none;" onchange="scanPhoto(event, 'photo-status')">
-      <div id="photo-status"></div>
-    </div>
-    <div class="divider">или через камеру</div>
-    <div id="reader-add"></div>
-    <div class="scan-hint">Наведите камеру — трек добавится в форму</div>
-    <div id="add-scan-result" style="margin-top:12px;"></div>
   </div>
 
   <div id="screen-add-manual" class="screen hidden">
@@ -306,18 +244,21 @@
       <p style="font-size:13px;color:var(--text-secondary);margin-bottom:10px;">Укажите, для кого все треки ниже</p>
       <input id="batch-person" placeholder="Например: Вика" autocomplete="off" style="font-style: italic; margin-bottom:0;">
     </div>
+
     <div class="card">
-      <h3>📦 Список треков (по одному в строке)</h3>
+      <h3>📦 Список треков</h3>
       <p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;line-height:1.6;">
-        Формат: <strong>ТРЕК ОПИСАНИЕ КОЛИЧЕСТВО ВЕС</strong><br>
+        Формат: <strong>ТРЕК ОПИСАНИЕ (КОЛИЧЕСТВО) (ВЕС)</strong><br>
         Примеры:<br>
-        <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:11px;">RU123 кроссовки 2 1.2</code><br>
-        <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:11px;">RU456 заколки 100 0.5</code><br>
-        <span style="font-size:11px;">(можно писать только вес, без количества)</span>
+        <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:11px;color:#0f172a;">RU123 кроссовки 2 1.2</code><br>
+        <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:11px;color:#0f172a;">RU456 заколки 100 0.5</code><br>
+        <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:11px;color:#0f172a;">RU789 футболка 0.3</code> (только вес)<br>
+        <span style="font-size:11px;">Порядок: сначала <strong>количество</strong>, потом <strong>вес</strong>.<br>Если одно число — это вес.</span>
       </p>
-      <textarea id="batch-text" placeholder="RU123456789 кроссовки 2 1.2&#10;RU987654321 заколки 100 0.5&#10;RU555666777 футболка 1 0.3" style="min-height:150px;font-family:'Courier New',monospace;font-size:14px;resize:vertical;"></textarea>
+      <textarea id="batch-text" placeholder="RU123456789 кроссовки 2 1.2&#10;RU987654321 заколки 100 0.5&#10;RU555666777 футболка 0.3" style="min-height:150px;font-family:'Courier New',monospace;font-size:14px;resize:vertical;"></textarea>
       <button class="success" onclick="batchParseText()">🔍 Разобрать и показать список</button>
     </div>
+
     <div id="batch-preview"></div>
     <button class="danger hidden" id="batch-save-btn" onclick="batchSaveAll()">💾 Сохранить все треки в базу</button>
   </div>
@@ -358,7 +299,7 @@
 
   <div id="screen-history" class="screen hidden">
     <div class="card" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">
-      <h3>🕓 История сканирований</h3>
+      <h3 style="color:#78350f;">🕓 История сканирований</h3>
       <p style="font-size:13px;color:#78350f;">Все треки, которые вы отсканировали</p>
     </div>
     <div id="history-list"></div>
@@ -387,7 +328,8 @@
 
 </main>
 
-<div class="footer" id="footer" style="display:none;">Разработчик: <strong>Anna Nichipor</strong></div>
+<div class="footer">Разработчик: <strong>Anna Nichipor</strong></div>
+
 <div id="toast-container"></div>
 
 <div id="edit-modal" style="position:fixed;inset:0;background:rgba(15,23,42,0.7);z-index:99997;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);">
@@ -416,105 +358,8 @@
 </div>
 
 <script>
-// ==================== АВТОРИЗАЦИЯ ====================
-const USERS_KEY = 'users_db_v1';
-const SESSION_KEY = 'current_session_v1';
-
-function loadUsers() { try { return JSON.parse(localStorage.getItem(USERS_KEY) || '{}'); } catch(e) { return {}; } }
-function saveUsers(u) { localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
-function getCurrentUser() { return localStorage.getItem(SESSION_KEY); }
-function setCurrentUser(n) { localStorage.setItem(SESSION_KEY, n); }
-
-function switchWelcomeTab(tab) {
-  document.getElementById('tab-login').classList.toggle('active', tab === 'login');
-  document.getElementById('tab-register').classList.toggle('active', tab === 'register');
-  document.getElementById('welcome-login').style.display = tab === 'login' ? 'block' : 'none';
-  document.getElementById('welcome-register').style.display = tab === 'register' ? 'block' : 'none';
-  showWelcomeError('');
-}
-
-function showWelcomeError(msg) {
-  const el = document.getElementById('welcome-error');
-  if (!msg) { el.style.display = 'none'; el.textContent = ''; return; }
-  el.style.display = 'block';
-  el.textContent = msg;
-}
-
-function doRegister() {
-  const nick = document.getElementById('reg-nick').value.trim();
-  const pass = document.getElementById('reg-pass').value;
-  const pass2 = document.getElementById('reg-pass2').value;
-  if (nick.length < 3) return showWelcomeError('Ник минимум 3 символа');
-  if (pass.length < 4) return showWelcomeError('Пароль минимум 4 символа');
-  if (pass !== pass2) return showWelcomeError('Пароли не совпадают');
-  const users = loadUsers();
-  const key = nick.toLowerCase();
-  if (users[key]) return showWelcomeError('Такой ник уже существует');
-  users[key] = { nick: nick, pass: pass };
-  saveUsers(users);
-  setCurrentUser(nick);
-  afterAuth(nick);
-}
-
-function doLogin() {
-  const nick = document.getElementById('login-nick').value.trim();
-  const pass = document.getElementById('login-pass').value;
-  if (!nick || !pass) return showWelcomeError('Введите ник и пароль');
-  const users = loadUsers();
-  const user = users[nick.toLowerCase()];
-  if (!user) return showWelcomeError('Пользователь не найден');
-  if (user.pass !== pass) return showWelcomeError('Неверный пароль');
-  setCurrentUser(user.nick);
-  afterAuth(user.nick);
-}
-
-function afterAuth(nick) {
-  document.getElementById('welcome-screen').style.display = 'none';
-  document.getElementById('greet-name').textContent = nick;
-  document.getElementById('greet-screen').style.display = 'flex';
-}
-
-function closeGreeting() {
-  document.getElementById('greet-screen').style.display = 'none';
-  document.getElementById('app-header').style.display = 'flex';
-  document.getElementById('main-content').style.display = 'block';
-  document.getElementById('footer').style.display = 'block';
-  renderRecentScans();
-  renderHistory();
-  switchMenu('scan');
-}
-
-function checkAuth() {
-  const user = getCurrentUser();
-  if (user) {
-    document.getElementById('welcome-screen').style.display = 'none';
-    document.getElementById('greet-name').textContent = user;
-    document.getElementById('greet-screen').style.display = 'flex';
-  } else {
-    document.getElementById('welcome-screen').style.display = 'flex';
-    document.getElementById('greet-screen').style.display = 'none';
-    document.getElementById('app-header').style.display = 'none';
-    document.getElementById('main-content').style.display = 'none';
-    document.getElementById('footer').style.display = 'none';
-  }
-}
-
-function logout() {
-  if (!confirm('Выйти из аккаунта?')) return;
-  localStorage.removeItem(SESSION_KEY);
-  document.getElementById('greet-screen').style.display = 'none';
-  document.getElementById('welcome-screen').style.display = 'flex';
-  document.getElementById('login-nick').value = '';
-  document.getElementById('login-pass').value = '';
-  document.getElementById('reg-nick').value = '';
-  document.getElementById('reg-pass').value = '';
-  document.getElementById('reg-pass2').value = '';
-  showWelcomeError('');
-  switchWelcomeTab('login');
-}
-
 // ==================== ХРАНИЛИЩА ====================
-const STORAGE_KEY = 'packages_db_v5';
+const STORAGE_KEY = 'packages_db_v6';
 const HISTORY_KEY = 'scan_history_v1';
 const RECENT_KEY = 'recent_scans_v1';
 
@@ -524,6 +369,20 @@ function loadHistory() { try { return JSON.parse(localStorage.getItem(HISTORY_KE
 function saveHistory(h) { localStorage.setItem(HISTORY_KEY, JSON.stringify(h)); }
 function loadRecent() { try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); } catch(e) { return []; } }
 function saveRecent(r) { localStorage.setItem(RECENT_KEY, JSON.stringify(r)); }
+
+// ==================== ФОРМАТИРОВАНИЕ ВЕСА ====================
+function formatWeight(w) {
+  if (w === undefined || w === null || w === '') return '';
+  const num = parseFloat(w);
+  if (isNaN(num)) return String(w);
+  // До сотых, без лишних нулей
+  return num.toFixed(2).replace(/\.?0+$/, '');
+}
+function formatTotalWeight(w) {
+  const num = parseFloat(w);
+  if (isNaN(num)) return '0.00';
+  return num.toFixed(2); // Всегда два знака
+}
 
 function addToHistory(track) {
   const h = loadHistory();
@@ -599,21 +458,13 @@ function loadTheme() {
 
 // ==================== ЗВУК СКАНИРОВАНИЯ ====================
 let audioCtx = null;
-
 function getAudioCtx() {
   if (!audioCtx) {
-    try {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    } catch (e) {
-      return null;
-    }
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; }
   }
-  if (audioCtx && audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
+  if (audioCtx && audioCtx.state === 'suspended') { audioCtx.resume(); }
   return audioCtx;
 }
-
 function playScanSound() {
   const ctx = getAudioCtx();
   if (!ctx) return;
@@ -628,9 +479,7 @@ function playScanSound() {
     gainNode.connect(ctx.destination);
     oscillator.start(ctx.currentTime);
     oscillator.stop(ctx.currentTime + 0.12);
-  } catch (e) {
-    console.log('Sound error:', e);
-  }
+  } catch (e) { console.log('Sound error:', e); }
 }
 
 // ==================== УВЕДОМЛЕНИЯ ====================
@@ -646,13 +495,10 @@ function showToast(message, type) {
   container.appendChild(toast);
   setTimeout(function() { dismissToast(toast); }, 2500);
 }
-
 function dismissToast(toast) {
   if (!toast || !toast.parentNode) return;
   toast.classList.add('fade-out');
-  setTimeout(function() {
-    if (toast.parentNode) toast.parentNode.removeChild(toast);
-  }, 300);
+  setTimeout(function() { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
 }
 
 // ==================== МЕНЮ ====================
@@ -668,7 +514,6 @@ function switchMenu(menu) {
 
   const titles = {
     'scan': ['📦 Сканер', 'Наведите на штрих-код'],
-    'add-scan': ['📸 Добавление трека', 'Камера или галерея'],
     'add-manual': ['✍️ Добавить вручную', 'Заполните поля'],
     'add-batch': ['📋 Треки к имени', 'Один человек — много треков'],
     'converter': ['💱 Конвертер', 'BYN ⇄ CNY'],
@@ -682,7 +527,6 @@ function switchMenu(menu) {
   }
 
   if (menu === 'scan') startScanner('reader-scan', 'scan-result-scan', 'normal');
-  if (menu === 'add-scan') startScanner('reader-add', 'add-scan-result', 'add');
   if (menu === 'history') renderHistory();
   if (menu === 'packages') renderPackages();
   if (menu === 'converter') convertCurrency(1);
@@ -697,7 +541,7 @@ function closeSidebar() {
   document.getElementById('sidebar-overlay').classList.remove('open');
 }
 
-// ==================== СКАНЕРЫ ====================
+// ==================== СКАНЕР ====================
 let scanner = null;
 let scannerRunning = false;
 let lastScan = { code: '', time: 0 };
@@ -743,15 +587,7 @@ function onScan(text, resultId, mode) {
   const el = document.getElementById(resultId);
   if (!el) return;
 
-  // 🔊 Звук успешного сканирования
   playScanSound();
-
-  if (mode === 'add') {
-    document.getElementById('in-track').value = code;
-    el.innerHTML = '<div class="card found"><h3>✅ Распознано</h3><p style="font-family:monospace;font-size:16px;font-weight:bold;">' + escapeHtml(code) + '</p><p style="font-size:13px;color:var(--text-secondary);margin-top:6px;">Перейдите в «Добавить вручную»</p></div>';
-    addToHistory(code);
-    return;
-  }
 
   const db = loadDB();
   const p = db[code];
@@ -761,7 +597,7 @@ function onScan(text, resultId, mode) {
     el.innerHTML = '<div class="card found">' +
       '<h3>✅ ' + escapeHtml(code) + '</h3>' +
       '<p><span class="label">Для кого</span><em>' + escapeHtml(p.person || '—') + '</em></p>' +
-      '<p><span class="label">Вес</span>' + escapeHtml(p.weight || '—') + ' кг</p>' +
+      '<p><span class="label">Вес</span>' + escapeHtml(formatWeight(p.weight) || '—') + ' кг</p>' +
       '<p><span class="label">Количество</span>' + escapeHtml(p.count || '—') + ' шт</p>' +
       '<p><span class="label">Что в треке</span>' + escapeHtml(p.desc || '—') + '</p>' +
       '</div>';
@@ -797,7 +633,7 @@ function quickSave(track) {
       el.innerHTML = '<div class="card found">' +
         '<h3>✅ Сохранено: ' + escapeHtml(track) + '</h3>' +
         '<p><span class="label">Для кого</span><em>' + escapeHtml(person) + '</em></p>' +
-        '<p><span class="label">Вес</span>' + escapeHtml(weight || '—') + ' кг</p>' +
+        '<p><span class="label">Вес</span>' + escapeHtml(formatWeight(weight) || '—') + ' кг</p>' +
         '<p><span class="label">Количество</span>' + escapeHtml(count || '—') + ' шт</p>' +
         '<p><span class="label">Что в треке</span>' + escapeHtml(desc || '—') + '</p>' +
         '</div>';
@@ -858,34 +694,6 @@ function clearHistory() {
   saveRecent([]);
   renderHistory();
   renderRecentScans();
-}
-
-// ==================== ФОТО ====================
-function scanPhoto(event, targetId) {
-  const file = event.target.files[0];
-  if (!file) return;
-  const statusEl = document.getElementById(targetId);
-  statusEl.innerHTML = '<div class="card info" style="margin-top:12px;">⏳ Распознаю...</div>';
-  if (!document.getElementById('photo-temp')) {
-    const div = document.createElement('div');
-    div.id = 'photo-temp';
-    div.style.display = 'none';
-    document.body.appendChild(div);
-  }
-  const tempScanner = new Html5Qrcode("photo-temp");
-  tempScanner.scanFile(file, true)
-    .then(function(decodedText) {
-      const code = decodedText.toUpperCase();
-      document.getElementById('in-track').value = code;
-      statusEl.innerHTML = '<div class="card found" style="margin-top:12px;"><h3>✅ Распознано</h3><p style="font-family:monospace;font-size:16px;font-weight:bold;">' + escapeHtml(code) + '</p></div>';
-      event.target.value = '';
-      tempScanner.clear();
-    })
-    .catch(function() {
-      statusEl.innerHTML = '<div class="card notfound" style="margin-top:12px;"><h3>❌ Не удалось</h3><p>Попробуйте другое фото.</p></div>';
-      event.target.value = '';
-      tempScanner.clear();
-    });
 }
 
 // ==================== ШТРИХ-КОД ====================
@@ -951,13 +759,11 @@ function savePackage() {
     if (descEl) descEl.value = '';
     const preview = document.getElementById('barcode-preview');
     if (preview) preview.style.display = 'none';
-    const photoStatus = document.getElementById('photo-status');
-    if (photoStatus) photoStatus.innerHTML = '';
     showToast('Сохранено: ' + track, 'success');
   } catch (e) { showToast('Ошибка сохранения: ' + e.message, 'error'); }
 }
 
-// ==================== ПАКЕТНОЕ ====================
+// ==================== ПАКЕТНОЕ (умный парсер) ====================
 let batchItems = [];
 
 function batchParseText() {
@@ -966,9 +772,11 @@ function batchParseText() {
   const text = textEl ? textEl.value.trim() : '';
   if (!person) { showToast('Сначала введите имя получателя', 'error'); return; }
   if (!text) { showToast('Введите хотя бы один трек', 'error'); return; }
+
   const lines = text.split('\n');
   const parsed = [];
   const errors = [];
+
   lines.forEach(function(line, idx) {
     const trimmed = line.trim();
     if (!trimmed) return;
@@ -977,27 +785,68 @@ function batchParseText() {
       errors.push('Строка ' + (idx + 1) + ': мало данных — «' + trimmed + '»');
       return;
     }
+
     const track = parts[0].toUpperCase();
     let count = '';
     let weight = '';
     let descParts = parts.slice(1);
+
+    // Берём последние 2 числа
     const lastPart = descParts[descParts.length - 1];
     const secondLast = descParts.length > 1 ? descParts[descParts.length - 2] : '';
-    const isLastNumber = /^\d+(\.\d+)?$/.test(lastPart);
-    const isSecondLastNumber = /^\d+(\.\d+)?$/.test(secondLast);
+    const isLastNumber = /^\d+([.,]\d+)?$/.test(lastPart);
+    const isSecondLastNumber = /^\d+([.,]\d+)?$/.test(secondLast);
+
     if (isLastNumber && isSecondLastNumber) {
-      count = secondLast;
-      weight = lastPart;
+      // Два числа: определяем, где количество, где вес
+      const lastNum = parseFloat(lastPart.replace(',', '.'));
+      const secondNum = parseFloat(secondLast.replace(',', '.'));
+
+      const lastIsDecimal = lastPart.indexOf('.') !== -1 || lastPart.indexOf(',') !== -1;
+      const secondIsDecimal = secondLast.indexOf('.') !== -1 || secondLast.indexOf(',') !== -1;
+
+      // Логика:
+      // 1. Если одно из чисел с точкой/запятой — это вес, другое — количество
+      // 2. Если оба целые — меньшее — вес, большее — количество
+      // 3. По умолчанию: первое число — количество, второе — вес
+
+      if (lastIsDecimal && !secondIsDecimal) {
+        // Последнее — вес (с точкой), предпоследнее — количество
+        count = secondLast;
+        weight = lastPart;
+      } else if (secondIsDecimal && !lastIsDecimal) {
+        // Предпоследнее — вес (с точкой), последнее — количество
+        weight = secondLast;
+        count = lastPart;
+      } else {
+        // Оба целые или оба с точкой — меньшее считаем весом
+        if (lastNum < secondNum) {
+          weight = lastPart;
+          count = secondLast;
+        } else {
+          weight = secondLast;
+          count = lastPart;
+        }
+      }
       descParts = descParts.slice(0, -2);
     } else if (isLastNumber) {
+      // Одно число — это вес
       weight = lastPart;
       descParts = descParts.slice(0, -1);
     }
+
+    // Нормализуем вес — заменяем запятую на точку
+    if (weight) weight = weight.replace(',', '.');
+    // Нормализуем количество — убираем точку/запятую если есть
+    if (count) count = count.replace(/[.,].*$/, '');
+
     const desc = descParts.join(' ').trim();
     parsed.push({ person: person, track: track, desc: desc, weight: weight, count: count });
   });
+
   if (errors.length > 0) showToast('Ошибки: ' + errors.length + ' строк. Проверьте текст.', 'warning');
   if (parsed.length === 0) { showToast('Не удалось разобрать треки', 'error'); return; }
+
   batchItems = parsed;
   renderBatchPreview();
 }
@@ -1009,6 +858,7 @@ function renderBatchPreview() {
   if (batchItems.length === 0) { el.innerHTML = ''; btn.classList.add('hidden'); return; }
   btn.classList.remove('hidden');
   el.innerHTML = '<div class="card"><h3>📋 Проверьте данные (' + batchItems.length + ')</h3>' +
+    '<p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;">Если что-то неверно — измените текст выше и нажмите «Разобрать» снова.</p>' +
     batchItems.map(function(it, i) {
       return '<div style="border-bottom:1px solid var(--border);padding:10px 0;">' +
         '<span class="track-number" style="display:inline-flex;min-width:24px;height:24px;font-size:11px;margin-right:6px;">' + (i + 1) + '</span> ' +
@@ -1017,7 +867,7 @@ function renderBatchPreview() {
           '<em>' + escapeHtml(it.person) + '</em>' +
           ' · ' + (it.desc ? escapeHtml(it.desc) : '<em>без описания</em>') +
           ' · ' + (it.count ? escapeHtml(it.count) + ' шт' : '<em>кол-во ?</em>') +
-          ' · ' + (it.weight ? escapeHtml(it.weight) + ' кг' : '<em>вес ?</em>') +
+          ' · ' + (it.weight ? escapeHtml(formatWeight(it.weight)) + ' кг' : '<em>вес ?</em>') +
         '</span>' +
         '</div>';
     }).join('') + '</div>';
@@ -1079,7 +929,7 @@ function renderPackages() {
 
   statsEl.innerHTML =
     '<div class="stat-card"><div class="num">' + total + '</div><div class="lbl">Треков</div></div>' +
-    '<div class="stat-card"><div class="num">' + totalWeight.toFixed(1) + '</div><div class="lbl">Вес (кг)</div></div>' +
+    '<div class="stat-card"><div class="num">' + formatTotalWeight(totalWeight) + '</div><div class="lbl">Вес (кг)</div></div>' +
     '<div class="stat-card"><div class="num">' + Object.keys(persons).length + '</div><div class="lbl">Людей</div></div>';
 
   if (Object.keys(persons).length === 0) {
@@ -1091,7 +941,7 @@ function renderPackages() {
       return '<div class="person-mini" onclick="openPersonDetail(\'' + escapeAttr(name) + '\')">' +
         '<div class="person-mini-avatar" style="background:' + color + ';">' + avatar + '</div>' +
         '<div class="person-mini-name">' + escapeHtml(name) + '</div>' +
-        '<div class="person-mini-meta">' + persons[name].count + ' шт<br>' + persons[name].weight.toFixed(1) + ' кг</div>' +
+        '<div class="person-mini-meta">' + persons[name].count + ' шт<br>' + formatWeight(persons[name].weight) + ' кг</div>' +
         '</div>';
     }).join('');
   }
@@ -1117,7 +967,7 @@ function renderPackages() {
       '</div>' +
       '<div style="font-size:12px; color:var(--text-secondary); margin-bottom:4px;">👤 <em>' + escapeHtml(p.person || '—') + '</em></div>' +
       '<div style="display:flex; gap:10px; font-size:12px; color:var(--text-secondary); flex-wrap:wrap;">' +
-        (p.weight ? '<span>⚖️ ' + escapeHtml(p.weight) + ' кг</span>' : '') +
+        (p.weight ? '<span>⚖️ ' + escapeHtml(formatWeight(p.weight)) + ' кг</span>' : '') +
         (p.count ? '<span>🔢 ' + escapeHtml(p.count) + ' шт</span>' : '') +
       '</div>' +
       (p.desc ? '<div style="font-size:12px; color:var(--text); margin-top:6px; padding-top:6px; border-top:1px solid var(--border);">' + escapeHtml(p.desc) + '</div>' : '') +
@@ -1149,7 +999,7 @@ function openPersonDetail(name) {
 
   content += '<div class="person-detail-stats">' +
     '<div class="stat-card"><div class="num">' + tracks.length + '</div><div class="lbl">Треков</div></div>' +
-    '<div class="stat-card"><div class="num">' + totalWeight.toFixed(1) + '</div><div class="lbl">Вес (кг)</div></div>' +
+    '<div class="stat-card"><div class="num">' + formatTotalWeight(totalWeight) + '</div><div class="lbl">Вес (кг)</div></div>' +
     '<div class="stat-card"><div class="num">' + totalCount + '</div><div class="lbl">Товаров</div></div>' +
     '</div>';
 
@@ -1173,7 +1023,7 @@ function openPersonDetail(name) {
       '<div class="track-content">' +
         '<div class="track-code">' + escapeHtml(k) + '</div>' +
         '<div class="track-meta">' +
-          '<strong>Вес:</strong> ' + escapeHtml(p.weight || '—') + ' кг<br>' +
+          '<strong>Вес:</strong> ' + escapeHtml(formatWeight(p.weight) || '—') + ' кг<br>' +
           '<strong>Количество:</strong> ' + escapeHtml(p.count || '—') + ' шт<br>' +
           '<strong>Что в треке:</strong> ' + escapeHtml(p.desc || '—') +
         '</div>' +
@@ -1359,12 +1209,13 @@ function escapeAttr(s) {
 // ==================== СТАРТ ====================
 window.addEventListener('load', function() {
   try { loadTheme(); } catch(e) { console.error(e); }
-  try { checkAuth(); } catch(e) { console.error(e); }
   try { renderRecentScans(); } catch(e) { console.error(e); }
   try { updateCurrencyUI(); } catch(e) { console.error(e); }
   try { convertCurrency(1); } catch(e) { console.error(e); }
   const rv = document.getElementById('rate-value');
   if (rv) rv.addEventListener('input', function() { convertCurrency(lastEdited); });
+  // Сразу открываем приложение (без формы входа)
+  switchMenu('scan');
 });
 </script>
 
