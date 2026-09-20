@@ -141,41 +141,249 @@
   @keyframes toastOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(-20px) scale(0.95); } }
   @keyframes toastProgress { from { width: 100%; } to { width: 0%; } }
 
-  /* ============ ТЁМНАЯ ТЕМА ============ */
+  /* ============ ТЁМНАЯ ТЕМА (улучшенная контрастность) ============ */
   body.dark {
-    --primary: #3b82f6; --primary-dark: #93c5fd; --primary-light: #1e3a5f;
-    --success-light: #14532d; --danger-light: #7f1d1d;
-    --bg: #0f172a; --card: #1e293b; --text: #f8fafc;
-    --text-secondary: #cbd5e1; --border: #334155;
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.3); --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --primary: #3b82f6;
+    --primary-dark: #dbeafe;
+    --primary-light: #1e3a5f;
+    --success: #22c55e;
+    --success-light: #14532d;
+    --danger: #f87171;
+    --danger-light: #7f1d1d;
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #ffffff;
+    --text-secondary: #cbd5e1;
+    --border: #475569;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
   }
-  body.dark .app-header, body.dark .sidebar-header, body.dark .person-detail-header { background: linear-gradient(135deg, #0c1e3e, #1e3a8a, #1e40af); }
-  body.dark .card h3, body.dark .person-detail-name, body.dark .welcome-title { color: #93c5fd; }
-  body.dark input, body.dark textarea, body.dark select { background: #0f172a; color: #f8fafc; border-color: #475569; font-weight: 600; }
-  body.dark input:focus, body.dark textarea:focus { border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); }
-  body.dark input::placeholder, body.dark textarea::placeholder { color: #94a3b8; }
-  body.dark .stat-card { background: linear-gradient(135deg, #1e293b, #334155); }
-  body.dark .stat-card .num { color: #93c5fd; }
-  body.dark .menu-item { color: #f1f5f9; }
-  body.dark .menu-item.active { background: #1e3a5f; color: #93c5fd; border-color: #3b82f6; }
-  body.dark .converter-card { background: linear-gradient(135deg, #1e293b, #0f172a); }
-  body.dark .converter-title { color: #93c5fd; }
-  body.dark .result-box { background: #0f172a; }
-  body.dark .result-value { color: #93c5fd; }
-  body.dark .card.found { background: linear-gradient(to right, #14532d 0%, #1e293b 15%); }
-  body.dark .card.notfound { background: linear-gradient(to right, #7f1d1d 0%, #1e293b 15%); }
-  body.dark .recent-item, body.dark .track-list-item, body.dark .person-mini { background: #1e293b; color: #f8fafc; }
-  body.dark .track-code { color: #93c5fd; }
-  body.dark .track-meta { color: #cbd5e1; }
-  body.dark .track-meta strong { color: #f8fafc; }
-  body.dark button.ghost { background: #1e293b; color: #93c5fd; border-color: #3b82f6; }
-  body.dark .empty { background: #1e293b; color: #cbd5e1; }
-  body.dark .sidebar { background: #1e293b; }
-  body.dark .toast { background: #1e293b; color: #f8fafc; }
-  body.dark .person-mini-name { color: #f8fafc; }
-  body.dark .person-mini-meta { color: #cbd5e1; }
-  body.dark .sidebar-footer { color: #cbd5e1; }
-  body.dark .header-title p { color: #e0e7ff; }
+
+  body.dark .app-header,
+  body.dark .sidebar-header,
+  body.dark .person-detail-header {
+    background: linear-gradient(135deg, #0c1e3e, #1e3a8a, #2563eb);
+  }
+
+  body.dark .card {
+    background: #1e293b;
+  }
+
+  body.dark .card h3 {
+    color: #93c5fd;
+    font-weight: 800;
+  }
+
+  body.dark .card p {
+    color: #e2e8f0;
+  }
+
+  body.dark .card .label {
+    color: #94a3b8;
+  }
+
+  body.dark .card.found {
+    background: linear-gradient(to right, rgba(20, 83, 45, 0.6) 0%, #1e293b 20%);
+  }
+
+  body.dark .card.notfound {
+    background: linear-gradient(to right, rgba(127, 29, 29, 0.6) 0%, #1e293b 20%);
+  }
+
+  body.dark input,
+  body.dark textarea,
+  body.dark select {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #475569;
+    font-weight: 600;
+  }
+
+  body.dark input:focus,
+  body.dark textarea:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35);
+  }
+
+  body.dark input::placeholder,
+  body.dark textarea::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+  }
+
+  body.dark .stat-card {
+    background: linear-gradient(135deg, #1e293b, #334155);
+  }
+
+  body.dark .stat-card .num {
+    color: #ffffff;
+    font-weight: 900;
+  }
+
+  body.dark .stat-card .lbl {
+    color: #cbd5e1;
+  }
+
+  body.dark .menu-item {
+    color: #f1f5f9;
+  }
+
+  body.dark .menu-item.active {
+    background: #1e3a5f;
+    color: #93c5fd;
+    border-color: #60a5fa;
+  }
+
+  body.dark .converter-card {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+  }
+
+  body.dark .converter-title {
+    color: #93c5fd;
+  }
+
+  body.dark .rate-row label {
+    color: #cbd5e1;
+  }
+
+  body.dark .result-box {
+    background: #0f172a;
+  }
+
+  body.dark .result-box .result-label {
+    color: #94a3b8;
+  }
+
+  body.dark .result-box .result-value {
+    color: #ffffff;
+    font-weight: 900;
+  }
+
+  body.dark .result-box .result-sub {
+    color: #cbd5e1;
+  }
+
+  body.dark .recent-item,
+  body.dark .track-list-item {
+    background: #1e293b;
+    color: #ffffff;
+  }
+
+  body.dark .track-code {
+    color: #ffffff;
+    font-weight: 800;
+    text-shadow: 0 0 8px rgba(147, 197, 253, 0.4);
+  }
+
+  body.dark .track-meta {
+    color: #cbd5e1;
+  }
+
+  body.dark .track-meta strong {
+    color: #ffffff;
+    font-weight: 800;
+  }
+
+  body.dark .track-number {
+    background: #3b82f6;
+    color: #ffffff;
+  }
+
+  body.dark button.ghost {
+    background: #1e293b;
+    color: #93c5fd;
+    border-color: #60a5fa;
+  }
+
+  body.dark .empty {
+    background: #1e293b;
+    color: #cbd5e1;
+  }
+
+  body.dark .sidebar {
+    background: #1e293b;
+  }
+
+  body.dark .sidebar-footer {
+    color: #cbd5e1;
+  }
+
+  body.dark .person-mini {
+    background: #1e293b;
+  }
+
+  body.dark .person-mini-name {
+    color: #ffffff;
+  }
+
+  body.dark .person-mini-meta {
+    color: #cbd5e1;
+  }
+
+  body.dark .toast {
+    background: #1e293b;
+    color: #ffffff;
+  }
+
+  body.dark .divider {
+    color: #94a3b8;
+  }
+
+  body.dark .scan-hint {
+    color: #cbd5e1;
+  }
+
+  body.dark .currency-input input {
+    background: #0f172a;
+    color: #ffffff;
+  }
+
+  body.dark .currency-input .curr-label {
+    color: #cbd5e1;
+  }
+
+  body.dark .currency-select button.ghost {
+    background: #1e293b;
+    color: #93c5fd;
+    border-color: #60a5fa;
+  }
+
+  body.dark .header-title h1,
+  body.dark .header-title p {
+    color: #ffffff;
+  }
+
+  body.dark .person-detail-name {
+    color: #ffffff;
+  }
+
+  body.dark .person-detail-sub {
+    color: #e2e8f0;
+  }
+
+  body.dark #edit-modal > div {
+    background: #1e293b !important;
+    color: #ffffff;
+  }
+
+  body.dark #edit-modal h2 {
+    color: #93c5fd !important;
+  }
+
+  body.dark #edit-modal label {
+    color: #cbd5e1 !important;
+  }
+
+  body.dark #edit-modal input {
+    background: #0f172a !important;
+    color: #ffffff !important;
+    border-color: #475569 !important;
+  }
+
+  body.dark #edit-track-display {
+    background: #334155 !important;
+    color: #ffffff !important;
+  }
 
   .hidden { display: none !important; }
 </style>
@@ -232,7 +440,7 @@
     <button class="success" onclick="generateBarcode()">📊 Сгенерировать штрих-код</button>
     <div id="barcode-preview" style="display:none;background:white;padding:20px;border-radius:16px;text-align:center;margin-bottom:12px;border:2px dashed var(--primary-light);">
       <svg id="barcode-svg"></svg>
-      <p id="barcode-text" style="font-family:monospace;font-size:17px;font-weight:bold;margin-top:12px;letter-spacing:2px;"></p>
+      <p id="barcode-text" style="font-family:monospace;font-size:17px;font-weight:bold;margin-top:12px;letter-spacing:2px;color:#000;"></p>
       <button class="ghost" style="margin-top:12px;" onclick="saveBarcodeImage()">💾 Скачать</button>
     </div>
     <button onclick="savePackage()">💾 Сохранить в базу</button>
@@ -248,12 +456,12 @@
     <div class="card">
       <h3>📦 Список треков</h3>
       <p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;line-height:1.6;">
-        Формат: <strong>ТРЕК ОПИСАНИЕ (КОЛИЧЕСТВО) (ВЕС)</strong><br>
+        Формат: <strong>ТРЕК ОПИСАНИЕ КОЛИЧЕСТВО ВЕС</strong><br>
         Примеры:<br>
         <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:11px;color:#0f172a;">RU123 кроссовки 2 1.2</code><br>
         <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:11px;color:#0f172a;">RU456 заколки 100 0.5</code><br>
         <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:11px;color:#0f172a;">RU789 футболка 0.3</code> (только вес)<br>
-        <span style="font-size:11px;">Порядок: сначала <strong>количество</strong>, потом <strong>вес</strong>.<br>Если одно число — это вес.</span>
+        <span style="font-size:11px;">Порядок: сначала <strong>количество</strong>, потом <strong>вес</strong>.</span>
       </p>
       <textarea id="batch-text" placeholder="RU123456789 кроссовки 2 1.2&#10;RU987654321 заколки 100 0.5&#10;RU555666777 футболка 0.3" style="min-height:150px;font-family:'Courier New',monospace;font-size:14px;resize:vertical;"></textarea>
       <button class="success" onclick="batchParseText()">🔍 Разобрать и показать список</button>
@@ -370,18 +578,17 @@ function saveHistory(h) { localStorage.setItem(HISTORY_KEY, JSON.stringify(h)); 
 function loadRecent() { try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); } catch(e) { return []; } }
 function saveRecent(r) { localStorage.setItem(RECENT_KEY, JSON.stringify(r)); }
 
-// ==================== ФОРМАТИРОВАНИЕ ВЕСА ====================
+// ==================== ФОРМАТИРОВАНИЕ ====================
 function formatWeight(w) {
   if (w === undefined || w === null || w === '') return '';
   const num = parseFloat(w);
   if (isNaN(num)) return String(w);
-  // До сотых, без лишних нулей
-  return num.toFixed(2).replace(/\.?0+$/, '');
+  return num.toFixed(2).replace(/\.?0+$/, '') || '0';
 }
 function formatTotalWeight(w) {
   const num = parseFloat(w);
   if (isNaN(num)) return '0.00';
-  return num.toFixed(2); // Всегда два знака
+  return num.toFixed(2);
 }
 
 function addToHistory(track) {
@@ -456,7 +663,7 @@ function loadTheme() {
   applyTheme(saved);
 }
 
-// ==================== ЗВУК СКАНИРОВАНИЯ ====================
+// ==================== ЗВУК ====================
 let audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) {
@@ -479,14 +686,14 @@ function playScanSound() {
     gainNode.connect(ctx.destination);
     oscillator.start(ctx.currentTime);
     oscillator.stop(ctx.currentTime + 0.12);
-  } catch (e) { console.log('Sound error:', e); }
+  } catch (e) {}
 }
 
 // ==================== УВЕДОМЛЕНИЯ ====================
 function showToast(message, type) {
   type = type || 'info';
   const container = document.getElementById('toast-container');
-  if (!container) { console.log('Toast:', message); return; }
+  if (!container) return;
   const icons = { 'success': '✅', 'error': '❌', 'warning': '⚠️', 'info': 'ℹ️' };
   const toast = document.createElement('div');
   toast.className = 'toast ' + type;
@@ -763,8 +970,87 @@ function savePackage() {
   } catch (e) { showToast('Ошибка сохранения: ' + e.message, 'error'); }
 }
 
-// ==================== ПАКЕТНОЕ (умный парсер) ====================
+// ==================== УМНЫЙ ПАРСЕР ====================
 let batchItems = [];
+
+function parseBatchLine(line) {
+  const trimmed = line.trim();
+  if (!trimmed) return null;
+
+  const parts = trimmed.split(/\s+/);
+  if (parts.length < 2) return { error: 'мало данных' };
+
+  // 1. Первое слово — трек-номер
+  const track = parts[0].toUpperCase();
+
+  // 2. Ищем все числа в остальной части
+  const rest = parts.slice(1);
+  const numberRegex = /^\d+([.,]\d+)?$/;
+  const numberIndices = [];
+
+  rest.forEach(function(word, idx) {
+    if (numberRegex.test(word)) {
+      numberIndices.push(idx);
+    }
+  });
+
+  let count = '';
+  let weight = '';
+  let descEndIdx = rest.length;
+
+  if (numberIndices.length >= 2) {
+    // Есть минимум 2 числа — последнее = вес, предпоследнее = количество
+    const lastIdx = numberIndices[numberIndices.length - 1];
+    const secondLastIdx = numberIndices[numberIndices.length - 2];
+
+    const lastNum = rest[lastIdx];
+    const secondLastNum = rest[secondLastIdx];
+
+    // Нормализация
+    weight = lastNum.replace(',', '.');
+    count = secondLastNum.replace(/[.,].*$/, '');
+
+    // Описание — всё до предпоследнего числа
+    descEndIdx = secondLastIdx;
+
+  } else if (numberIndices.length === 1) {
+    // Одно число — это вес
+    const idx = numberIndices[0];
+    weight = rest[idx].replace(',', '.');
+    descEndIdx = idx;
+  } else {
+    // Чисел нет — всё описание, вес и количество пустые
+    descEndIdx = rest.length;
+  }
+
+  // Обрезаем описание: убираем числа из середины описания? Нет — только до первого числа
+  // Если числа стояли не подряд (например, "футболка 2 синяя 1.5"), описание будет "футболка синяя" — берём только слова до первого числа в конце
+  // Правильнее: описанием считаем всё ДО позиции count/weight, а также слова между ними, если они не числа
+  // Упростим: берём все слова ДО предпоследнего числа, но исключаем из описания любые числа
+  const descWords = [];
+  for (let i = 0; i < descEndIdx; i++) {
+    if (!numberRegex.test(rest[i])) {
+      descWords.push(rest[i]);
+    }
+  }
+
+  // Если count/weight стоят не в конце — добавим слова после них
+  if (numberIndices.length >= 2) {
+    const lastIdx = numberIndices[numberIndices.length - 1];
+    for (let i = lastIdx + 1; i < rest.length; i++) {
+      if (!numberRegex.test(rest[i])) descWords.push(rest[i]);
+    }
+  } else if (numberIndices.length === 1) {
+    const idx = numberIndices[0];
+    for (let i = idx + 1; i < rest.length; i++) {
+      if (!numberRegex.test(rest[i])) descWords.push(rest[i]);
+    }
+  }
+
+  const desc = descWords.join(' ').trim();
+
+  return { track: track, desc: desc, weight: weight, count: count };
+}
 
 function batchParseText() {
   const person = document.getElementById('batch-person').value.trim();
@@ -778,70 +1064,19 @@ function batchParseText() {
   const errors = [];
 
   lines.forEach(function(line, idx) {
-    const trimmed = line.trim();
-    if (!trimmed) return;
-    const parts = trimmed.split(/\s+/);
-    if (parts.length < 2) {
-      errors.push('Строка ' + (idx + 1) + ': мало данных — «' + trimmed + '»');
+    const result = parseBatchLine(line);
+    if (!result) return;
+    if (result.error) {
+      errors.push('Строка ' + (idx + 1) + ': ' + result.error);
       return;
     }
-
-    const track = parts[0].toUpperCase();
-    let count = '';
-    let weight = '';
-    let descParts = parts.slice(1);
-
-    // Берём последние 2 числа
-    const lastPart = descParts[descParts.length - 1];
-    const secondLast = descParts.length > 1 ? descParts[descParts.length - 2] : '';
-    const isLastNumber = /^\d+([.,]\d+)?$/.test(lastPart);
-    const isSecondLastNumber = /^\d+([.,]\d+)?$/.test(secondLast);
-
-    if (isLastNumber && isSecondLastNumber) {
-      // Два числа: определяем, где количество, где вес
-      const lastNum = parseFloat(lastPart.replace(',', '.'));
-      const secondNum = parseFloat(secondLast.replace(',', '.'));
-
-      const lastIsDecimal = lastPart.indexOf('.') !== -1 || lastPart.indexOf(',') !== -1;
-      const secondIsDecimal = secondLast.indexOf('.') !== -1 || secondLast.indexOf(',') !== -1;
-
-      // Логика:
-      // 1. Если одно из чисел с точкой/запятой — это вес, другое — количество
-      // 2. Если оба целые — меньшее — вес, большее — количество
-      // 3. По умолчанию: первое число — количество, второе — вес
-
-      if (lastIsDecimal && !secondIsDecimal) {
-        // Последнее — вес (с точкой), предпоследнее — количество
-        count = secondLast;
-        weight = lastPart;
-      } else if (secondIsDecimal && !lastIsDecimal) {
-        // Предпоследнее — вес (с точкой), последнее — количество
-        weight = secondLast;
-        count = lastPart;
-      } else {
-        // Оба целые или оба с точкой — меньшее считаем весом
-        if (lastNum < secondNum) {
-          weight = lastPart;
-          count = secondLast;
-        } else {
-          weight = secondLast;
-          count = lastPart;
-        }
-      }
-      descParts = descParts.slice(0, -2);
-    } else if (isLastNumber) {
-      // Одно число — это вес
-      weight = lastPart;
-      descParts = descParts.slice(0, -1);
-    }
-
-    // Нормализуем вес — заменяем запятую на точку
-    if (weight) weight = weight.replace(',', '.');
-    // Нормализуем количество — убираем точку/запятую если есть
-    if (count) count = count.replace(/[.,].*$/, '');
-
-    const desc = descParts.join(' ').trim();
-    parsed.push({ person: person, track: track, desc: desc, weight: weight, count: count });
+    parsed.push({
+      person: person,
+      track: result.track,
+      desc: result.desc,
+      weight: result.weight,
+      count: result.count
+    });
   });
 
   if (errors.length > 0) showToast('Ошибки: ' + errors.length + ' строк. Проверьте текст.', 'warning');
@@ -849,6 +1084,7 @@ function batchParseText() {
 
   batchItems = parsed;
   renderBatchPreview();
+  showToast('Разобрано: ' + parsed.length + ' треков', 'success');
 }
 
 function renderBatchPreview() {
@@ -858,7 +1094,7 @@ function renderBatchPreview() {
   if (batchItems.length === 0) { el.innerHTML = ''; btn.classList.add('hidden'); return; }
   btn.classList.remove('hidden');
   el.innerHTML = '<div class="card"><h3>📋 Проверьте данные (' + batchItems.length + ')</h3>' +
-    '<p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;">Если что-то неверно — измените текст выше и нажмите «Разобрать» снова.</p>' +
+    '<p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;">Если что-то неверно — измените текст и нажмите «Разобрать» снова.</p>' +
     batchItems.map(function(it, i) {
       return '<div style="border-bottom:1px solid var(--border);padding:10px 0;">' +
         '<span class="track-number" style="display:inline-flex;min-width:24px;height:24px;font-size:11px;margin-right:6px;">' + (i + 1) + '</span> ' +
@@ -866,8 +1102,8 @@ function renderBatchPreview() {
         '<span style="font-size:12px;color:var(--text-secondary);">' +
           '<em>' + escapeHtml(it.person) + '</em>' +
           ' · ' + (it.desc ? escapeHtml(it.desc) : '<em>без описания</em>') +
-          ' · ' + (it.count ? escapeHtml(it.count) + ' шт' : '<em>кол-во ?</em>') +
-          ' · ' + (it.weight ? escapeHtml(formatWeight(it.weight)) + ' кг' : '<em>вес ?</em>') +
+          ' · ' + (it.count ? '<strong style="color:var(--primary-dark);">' + escapeHtml(it.count) + ' шт</strong>' : '<em>кол-во ?</em>') +
+          ' · ' + (it.weight ? '<strong style="color:var(--primary-dark);">' + escapeHtml(formatWeight(it.weight)) + ' кг</strong>' : '<em>вес ?</em>') +
         '</span>' +
         '</div>';
     }).join('') + '</div>';
@@ -962,7 +1198,7 @@ function renderPackages() {
     }
     return '<div class="card clickable" onclick="openEditModal(\'' + escapeAttr(k) + '\')" style="padding:12px;">' +
       '<div style="display:flex; justify-content:space-between; align-items:flex-start; gap:6px; margin-bottom:6px;">' +
-        '<div style="font-family:monospace; font-weight:700; font-size:13px; color:var(--primary-dark); word-break:break-all; flex:1;">' + escapeHtml(k) + '</div>' +
+        '<div style="font-family:monospace; font-weight:800; font-size:13px; color:var(--primary-dark); word-break:break-all; flex:1;">' + escapeHtml(k) + '</div>' +
         (dateStr ? '<div style="font-size:10px; color:var(--text-secondary); text-align:right; white-space:nowrap; flex-shrink:0;">🕒 ' + dateStr + '</div>' : '') +
       '</div>' +
       '<div style="font-size:12px; color:var(--text-secondary); margin-bottom:4px;">👤 <em>' + escapeHtml(p.person || '—') + '</em></div>' +
@@ -1214,7 +1450,6 @@ window.addEventListener('load', function() {
   try { convertCurrency(1); } catch(e) { console.error(e); }
   const rv = document.getElementById('rate-value');
   if (rv) rv.addEventListener('input', function() { convertCurrency(lastEdited); });
-  // Сразу открываем приложение (без формы входа)
   switchMenu('scan');
 });
 </script>
