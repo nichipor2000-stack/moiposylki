@@ -445,11 +445,14 @@ window.dispatchEvent(new Event('firebase-ready'));
     <div id="person-detail-content"></div>
   </div>
 
-  <div id="screen-admin" class="screen hidden">
+   <div id="screen-admin" class="screen hidden">
     <div class="card" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">
       <h3 style="color:#78350f;">👑 Админ-панель</h3>
       <p style="font-size:13px;color:#78350f;">Видно только вам. Другие пользователи этот раздел не видят.</p>
     </div>
+
+    <button class="success" onclick="exportUsersToExcel()" style="margin-bottom:16px;">📥 Экспорт пользователей в Excel</button>
+
     <div class="stats" id="admin-stats"></div>
     <h3 style="font-size:15px;color:var(--text-secondary);margin:16px 0 8px;text-transform:uppercase;">👥 Все пользователи</h3>
     <div id="admin-users"></div>
