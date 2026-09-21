@@ -1669,8 +1669,11 @@ function escapeAttr(s) {
 // ==================== СТАРТ ====================
 window.addEventListener('load', function() {
   loadTheme();
-  // Показываем экран загрузки
-  document.getElementById('login-screen').style.display = 'flex';
+  // Показываем экран загрузки, пока Firebase проверяет сессию
+  var loadingEl = document.getElementById('loading-screen');
+  var loginEl = document.getElementById('login-screen');
+  if (loadingEl) loadingEl.style.display = 'flex';
+  if (loginEl) loginEl.style.display = 'none';
 });
 </script>
 
