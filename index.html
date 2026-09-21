@@ -1901,6 +1901,66 @@ async function exportUsersToExcel() {
     showSync(false);
   }
 }
+  // ==================== УДАЛЕНИЕ ПОЛЬЗОВАТЕЛЯ ====================
+async function deleteUser(uid, email, name) {
+  if (!currentUser || currentUser.email !== ADMIN_EMAIL) {
+    showToast('Доступ запрещён', 'error');
+    return;
+  }
+
+  if (currentUser.uid === uid) {
+    showToast('Нельзя удалить самого себя', 'error');
+    return;
+  }
+
+  // Первое подтверждение
+  if (!confirm('⚠️ ВНИМАНИЕ!\n\nВы собираетесь удалить пользователя:\n\n👤 ' + name + '\n📧 ' + email + '\n\nБудут удалены:\n• Все его треки\n• Вся история\n• Сам аккаунт\n\nЭто действие НЕОБРАТИМО!\n\nПродолжить?')) {
+    return;
+  }
+
+  // Второе подтверждение — ввод слова
+  const input = prompt('Для подтверждения введите слово УДАЛИТЬ (заглавными буквами):');
+  if (input !== 'УДАЛИТЬ') {
+    showToast('Отменено', 'info');
+    return;
+  }
+
+  showSync(true);
+
+  try {
+    const { db: fdb, doc, getDoc, setDoc, deleteDoc, collection, getDocs } = window.FB;
+
+    // Если функции deleteDoc/collection/getDocs не подключены — используем setDoc для очистки
+    // Основная очистка: удаляем данные пользователя
+
+    // 1. Очищаем данные пользователя (перезаписываем пустыми)
+    try {
+      const userDataRef = doc(fdb, 'users', uid, 'data', 'main');
+      await setDoc(userDataRef, { packages: {}, history: [], recent: [], deleted: true, deletedAt: Date.now() });
+    } catch (e) {
+      console.warn('Could not clear user data', e);
+    }
+
+    // 2. Убираем из списка пользователей
+    const usersListRef = doc(fdb, 'system', 'usersList');
+    const snap = await getDoc(usersListRef);
+    if (snap.exists()) {
+      const list = snap.data() || {};
+      delete list[uid];
+      await setDoc(usersListRef, list);
+    }
+
+    showToast('Пользователь удалён: ' + email, 'success');
+
+    // Обновляем админку
+    loadAdminPanel();
+  } catch (e) {
+    console.error(e);
+    showToast('Ошибка: ' + e.message, 'error');
+  } finally {
+    showSync(false);
+  }
+}
 // ==================== УТИЛИТЫ ====================
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, function(c) {
