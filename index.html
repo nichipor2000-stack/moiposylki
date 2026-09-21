@@ -743,7 +743,36 @@ function addToHistory(track) {
   renderRecentScans();
   renderHistory();
 }
+// ==================== ОПРЕДЕЛЕНИЕ УСТРОЙСТВА ====================
+function detectDevice() {
+  const ua = navigator.userAgent || '';
+  const platform = navigator.platform || '';
 
+  // iPhone
+  if (/iPhone/i.test(ua)) return { type: 'iPhone', icon: '📱', name: 'iPhone' };
+
+  // iPad (включая новые, которые притворяются Mac)
+  if (/iPad/i.test(ua) || (/Macintosh/i.test(ua) && 'ontouchend' in document)) {
+    return { type: 'iPad', icon: '📱', name: 'iPad' };
+  }
+
+  // Android
+  if (/Android/i.test(ua)) {
+    if (/Mobile/i.test(ua)) return { type: 'Android', icon: '📱', name: 'Android' };
+    return { type: 'Android-Tablet', icon: '📱', name: 'Android планшет' };
+  }
+
+  // Windows
+  if (/Windows/i.test(ua)) return { type: 'Windows', icon: '💻', name: 'Компьютер (Windows)' };
+
+  // Mac
+  if (/Macintosh|Mac OS X/i.test(ua)) return { type: 'Mac', icon: '💻', name: 'Mac' };
+
+  // Linux
+  if (/Linux/i.test(ua)) return { type: 'Linux', icon: '💻', name: 'Linux' };
+
+  return { type: 'Unknown', icon: '❓', name: 'Неизвестно' };
+}
 // ==================== АВАТАРКИ ====================
 const AVATAR_EMOJIS = [
   '👩🏻', '🧑🏻', '👨🏼', '👧', '🧒', '👦', '👶', '🧓🏻',
