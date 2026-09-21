@@ -56,10 +56,13 @@ window.dispatchEvent(new Event('firebase-ready'));
   .login-logo { font-size: 70px; margin-bottom: 16px; }
   .login-title { font-size: 26px; font-weight: 800; color: var(--primary-dark); margin-bottom: 8px; }
   .login-subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 28px; line-height: 1.5; }
-  .google-btn { background: white; color: #3c4043; border: 1.5px solid #dadce0; padding: 14px 20px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: all 0.15s; }
+  .google-btn { background: white; color: #3c4043; border: 1.5px solid #dadce0; padding: 14px 20px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
   .google-btn:active { transform: scale(0.97); background: #f8f9fa; }
   .google-btn img { width: 22px; height: 22px; }
   .login-note { font-size: 12px; color: var(--text-secondary); margin-top: 20px; }
+
+  .spinner { width: 48px; height: 48px; border: 4px solid #dbeafe; border-top-color: #2563eb; border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto 0; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   .app-header { background: linear-gradient(135deg, #1e40af, #2563eb, #3b82f6); color: white; padding: 16px; display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3); }
   .menu-btn, .theme-btn { background: rgba(255,255,255,0.15); border: none; color: white; width: 44px; height: 44px; border-radius: 12px; font-size: 20px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
@@ -81,7 +84,7 @@ window.dispatchEvent(new Event('firebase-ready'));
   .menu-item .menu-icon { font-size: 22px; width: 28px; text-align: center; }
   .sidebar-footer { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-secondary); text-align: center; }
   .user-info { padding: 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); }
-  .user-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; flex-shrink: 0; }
+  .user-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; flex-shrink: 0; background-size: cover; background-position: center; }
   .user-info-text { flex: 1; min-width: 0; }
   .user-email { font-size: 12px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .user-name { font-size: 14px; font-weight: 700; }
@@ -156,7 +159,7 @@ window.dispatchEvent(new Event('firebase-ready'));
   .footer { text-align: center; padding: 16px; color: var(--text-secondary); font-size: 11px; font-weight: 600; letter-spacing: 1px; }
   .footer strong { color: var(--primary-dark); }
 
-  .person-mini { background: var(--card); border-radius: 12px; padding: 8px 6px; margin-bottom: 8px; text-align: center; cursor: pointer; box-shadow: var(--shadow); transition: transform 0.15s; border: 1.5px solid transparent; }
+  .person-mini { background: var(--card); border-radius: 12px; padding: 8px 6px; margin-bottom: 8px; text-align: center; cursor: pointer; box-shadow: var(--shadow); border: 1.5px solid transparent; }
   .person-mini:active { transform: scale(0.96); }
   .person-mini-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; margin: 0 auto 4px; }
   .person-mini-name { font-size: 11px; font-weight: 700; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 2px; }
@@ -216,7 +219,7 @@ window.dispatchEvent(new Event('firebase-ready'));
   body.dark .result-box .result-value { color: #ffffff; font-weight: 900; }
   body.dark .result-box .result-sub { color: #cbd5e1; }
   body.dark .recent-item, body.dark .track-list-item { background: #1e293b; color: #ffffff; }
-  body.dark .track-code { color: #ffffff; font-weight: 800; text-shadow: 0 0 8px rgba(147, 197, 253, 0.4); }
+  body.dark .track-code { color: #ffffff; font-weight: 800; }
   body.dark .track-meta { color: #cbd5e1; }
   body.dark .track-meta strong { color: #ffffff; font-weight: 800; }
   body.dark .track-number { background: #3b82f6; color: #ffffff; }
@@ -236,8 +239,6 @@ window.dispatchEvent(new Event('firebase-ready'));
   body.dark .header-title h1, body.dark .header-title p { color: #ffffff; }
   body.dark .person-detail-name { color: #ffffff; }
   body.dark .person-detail-sub { color: #e2e8f0; }
-  body.dark .user-info-text .user-name { color: #ffffff; }
-  body.dark .user-email { color: #cbd5e1; }
   body.dark #edit-modal > div { background: #1e293b !important; color: #ffffff; }
   body.dark #edit-modal h2 { color: #93c5fd !important; }
   body.dark #edit-modal label { color: #cbd5e1 !important; }
@@ -249,20 +250,15 @@ window.dispatchEvent(new Event('firebase-ready'));
 </head>
 <body>
 
- <div class="login-screen" id="loading-screen">
+<div class="login-screen" id="loading-screen" style="display:none;">
   <div class="login-card">
     <div class="login-logo">📦</div>
     <h1 class="login-title">Мои посылки</h1>
     <p class="login-subtitle">Загрузка...</p>
-    <div style="margin-top:20px; display:flex; justify-content:center;">
-      <div style="width:40px; height:40px; border:4px solid #dbeafe; border-top-color:#2563eb; border-radius:50%; animation: spin 1s linear infinite;"></div>
-    </div>
+    <div class="spinner"></div>
   </div>
 </div>
 
-<style>
-  @keyframes spin { to { transform: rotate(360deg); } }
-</style> 
 <div class="login-screen" id="login-screen" style="display:none;">
   <div class="login-card">
     <div class="login-logo">📦</div>
@@ -474,20 +470,17 @@ window.dispatchEvent(new Event('firebase-ready'));
 <script>
 // ==================== СОСТОЯНИЕ ====================
 let currentUser = null;
-let fbReady = false;
 let db = {};
 let history = [];
 let recent = [];
-let unsubscribe = null;
-let pendingInitialMerge = false;
 
 const STORAGE_KEY = 'packages_db_v6';
 const HISTORY_KEY = 'scan_history_v1';
 const RECENT_KEY = 'recent_scans_v1';
 
-// ==================== ОЖИДАНИЕ FIREBASE ====================
-if (window.FB) { fbReady = true; initFirebase(); }
-else { window.addEventListener('firebase-ready', function() { fbReady = true; initFirebase(); }); }
+// ==================== ЗАПУСК FIREBASE ====================
+if (window.FB) { initFirebase(); }
+else { window.addEventListener('firebase-ready', function() { initFirebase(); }); }
 
 function initFirebase() {
   const { auth, onAuthStateChanged } = window.FB;
@@ -536,13 +529,13 @@ function updateUserUI(user) {
 
   document.getElementById('user-name').textContent = name;
   document.getElementById('user-email').textContent = email;
-  document.getElementById('user-avatar').textContent = initial;
+  const avatarEl = document.getElementById('user-avatar');
 
   if (user.photoURL) {
-    document.getElementById('user-avatar').style.backgroundImage = 'url(' + user.photoURL + ')';
-    document.getElementById('user-avatar').style.backgroundSize = 'cover';
-    document.getElementById('user-avatar').style.backgroundPosition = 'center';
-    document.getElementById('user-avatar').textContent = '';
+    avatarEl.style.backgroundImage = 'url(' + user.photoURL + ')';
+    avatarEl.textContent = '';
+  } else {
+    avatarEl.textContent = initial;
   }
 }
 
@@ -575,12 +568,10 @@ async function loadFromFirestore(uid) {
       db = data.packages || {};
       history = data.history || [];
       recent = data.recent || [];
-      // Дублируем в localStorage для быстрого доступа и на случай offline
       localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
       localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
       localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
     } else {
-      // Первый вход — переносим данные из localStorage (если есть)
       const localDB = localStorage.getItem(STORAGE_KEY);
       const localHistory = localStorage.getItem(HISTORY_KEY);
       const localRecent = localStorage.getItem(RECENT_KEY);
@@ -607,7 +598,6 @@ async function loadFromFirestore(uid) {
   } catch (e) {
     console.error(e);
     showToast('Ошибка загрузки данных', 'error');
-    // Пробуем из localStorage
     try { db = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e2) { db = {}; }
     try { history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch(e2) { history = []; }
     try { recent = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); } catch(e2) { recent = []; }
@@ -618,12 +608,10 @@ async function loadFromFirestore(uid) {
 
 async function saveToFirestore() {
   if (!currentUser) return;
-  // Дублируем в localStorage всегда
   localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
   localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
   localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
 
-  // Затем в Firestore
   try {
     const { db: fdb, doc, setDoc } = window.FB;
     const ref = doc(fdb, 'users', currentUser.uid, 'data', 'main');
@@ -1041,7 +1029,7 @@ function savePackage() {
   } catch (e) { showToast('Ошибка сохранения: ' + e.message, 'error'); }
 }
 
-// ==================== УМНЫЙ ПАРСЕР ====================
+// ==================== ПАРСЕР ====================
 let batchItems = [];
 
 function parseBatchLine(line) {
@@ -1073,15 +1061,12 @@ function parseBatchLine(line) {
     const idx = numberIndices[0];
     weight = rest[idx].replace(',', '.');
     descEndIdx = idx;
-  } else {
-    descEndIdx = rest.length;
   }
 
   const descWords = [];
   for (let i = 0; i < descEndIdx; i++) {
     if (!numberRegex.test(rest[i])) descWords.push(rest[i]);
   }
-
   if (numberIndices.length >= 2) {
     const lastIdx = numberIndices[numberIndices.length - 1];
     for (let i = lastIdx + 1; i < rest.length; i++) {
@@ -1112,20 +1097,11 @@ function batchParseText() {
   lines.forEach(function(line, idx) {
     const result = parseBatchLine(line);
     if (!result) return;
-    if (result.error) {
-      errors.push('Строка ' + (idx + 1) + ': ' + result.error);
-      return;
-    }
-    parsed.push({
-      person: person,
-      track: result.track,
-      desc: result.desc,
-      weight: result.weight,
-      count: result.count
-    });
+    if (result.error) { errors.push('Строка ' + (idx + 1) + ': ' + result.error); return; }
+    parsed.push({ person: person, track: result.track, desc: result.desc, weight: result.weight, count: result.count });
   });
 
-  if (errors.length > 0) showToast('Ошибки: ' + errors.length + ' строк. Проверьте текст.', 'warning');
+  if (errors.length > 0) showToast('Ошибки: ' + errors.length + ' строк.', 'warning');
   if (parsed.length === 0) { showToast('Не удалось разобрать треки', 'error'); return; }
 
   batchItems = parsed;
@@ -1140,7 +1116,6 @@ function renderBatchPreview() {
   if (batchItems.length === 0) { el.innerHTML = ''; btn.classList.add('hidden'); return; }
   btn.classList.remove('hidden');
   el.innerHTML = '<div class="card"><h3>📋 Проверьте данные (' + batchItems.length + ')</h3>' +
-    '<p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;">Если что-то неверно — измените текст и нажмите «Разобрать» снова.</p>' +
     batchItems.map(function(it, i) {
       return '<div style="border-bottom:1px solid var(--border);padding:10px 0;">' +
         '<span class="track-number" style="display:inline-flex;min-width:24px;height:24px;font-size:11px;margin-right:6px;">' + (i + 1) + '</span> ' +
@@ -1148,8 +1123,8 @@ function renderBatchPreview() {
         '<span style="font-size:12px;color:var(--text-secondary);">' +
           '<em>' + escapeHtml(it.person) + '</em>' +
           ' · ' + (it.desc ? escapeHtml(it.desc) : '<em>без описания</em>') +
-          ' · ' + (it.count ? '<strong style="color:var(--primary-dark);">' + escapeHtml(it.count) + ' шт</strong>' : '<em>кол-во ?</em>') +
-          ' · ' + (it.weight ? '<strong style="color:var(--primary-dark);">' + escapeHtml(formatWeight(it.weight)) + ' кг</strong>' : '<em>вес ?</em>') +
+          ' · ' + (it.count ? '<strong>' + escapeHtml(it.count) + ' шт</strong>' : '<em>кол-во ?</em>') +
+          ' · ' + (it.weight ? '<strong>' + escapeHtml(formatWeight(it.weight)) + ' кг</strong>' : '<em>вес ?</em>') +
         '</span>' +
         '</div>';
     }).join('') + '</div>';
@@ -1162,7 +1137,7 @@ function batchSaveAll() {
     dbData[it.track] = { person: it.person, weight: it.weight, count: it.count, desc: it.desc, addedAt: Date.now() };
   });
   saveDB(dbData);
-  showToast('Сохранено ' + batchItems.length + ' треков для ' + batchItems[0].person, 'success');
+  showToast('Сохранено ' + batchItems.length + ' треков', 'success');
   batchItems = [];
   renderBatchPreview();
   const textEl = document.getElementById('batch-text');
@@ -1349,25 +1324,19 @@ function saveEditTrack() {
   const desc = document.getElementById('edit-desc').value.trim();
   const dbData = loadDB();
   dbData[track] = {
-    person: person,
-    weight: weight,
-    count: count,
-    desc: desc,
+    person: person, weight: weight, count: count, desc: desc,
     addedAt: dbData[track] ? dbData[track].addedAt : Date.now(),
     editedAt: Date.now()
   };
   saveDB(dbData);
   closeEditModal();
   showToast('Трек обновлён', 'success');
-  const personDetailScreen = document.getElementById('screen-person-detail');
-  const packagesScreen = document.getElementById('screen-packages');
-  if (personDetailScreen && !personDetailScreen.classList.contains('hidden')) {
-    if (person && person !== editingOriginalPerson) {
-      openPersonDetail(person);
-    } else {
-      openPersonDetail(editingOriginalPerson || person);
-    }
-  } else if (packagesScreen && !packagesScreen.classList.contains('hidden')) {
+  const pds = document.getElementById('screen-person-detail');
+  const ps = document.getElementById('screen-packages');
+  if (pds && !pds.classList.contains('hidden')) {
+    if (person && person !== editingOriginalPerson) openPersonDetail(person);
+    else openPersonDetail(editingOriginalPerson || person);
+  } else if (ps && !ps.classList.contains('hidden')) {
     renderPackages();
   }
 }
@@ -1381,12 +1350,9 @@ function deleteTrackFromModal() {
   saveDB(dbData);
   closeEditModal();
   showToast('Трек удалён', 'success');
-  const personDetailScreen = document.getElementById('screen-person-detail');
-  if (personDetailScreen && !personDetailScreen.classList.contains('hidden')) {
-    switchMenu('packages');
-  } else {
-    renderPackages();
-  }
+  const pds = document.getElementById('screen-person-detail');
+  if (pds && !pds.classList.contains('hidden')) switchMenu('packages');
+  else renderPackages();
 }
 
 // ==================== ГОЛОС ====================
@@ -1479,29 +1445,16 @@ function clearConverter() {
   document.getElementById('result-sub').textContent = 'Введите сумму';
 }
 
-// ==================== РЕЗЕРВНАЯ КОПИЯ ====================
+// ==================== БЭКАП ====================
 function saveBackup() {
   const dbData = loadDB();
-  const h = loadHistory();
-  const r = loadRecent();
-
   const data = {
-    version: 1,
-    appName: 'Мои посылки',
-    createdAt: new Date().toISOString(),
-    packages: dbData,
-    history: h,
-    recent: r
+    version: 1, appName: 'Мои посылки', createdAt: new Date().toISOString(),
+    packages: dbData, history: loadHistory(), recent: loadRecent()
   };
-
   const json = JSON.stringify(data, null, 2);
   const now = new Date();
-  const dateStr = now.getFullYear() + '-' +
-    String(now.getMonth() + 1).padStart(2, '0') + '-' +
-    String(now.getDate()).padStart(2, '0') + '_' +
-    String(now.getHours()).padStart(2, '0') + '-' +
-    String(now.getMinutes()).padStart(2, '0');
-
+  const dateStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0') + '_' + String(now.getHours()).padStart(2, '0') + '-' + String(now.getMinutes()).padStart(2, '0');
   const blob = new Blob([json], { type: 'application/json;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
@@ -1515,7 +1468,7 @@ function saveBackup() {
 function restoreBackup(event) {
   const file = event.target.files[0];
   if (!file) return;
-  if (!confirm('Загрузить резервную копию?\n\n⚠️ ВСЕ текущие данные будут ЗАМЕНЕНЫ на данные из файла.')) {
+  if (!confirm('Загрузить резервную копию?\n\n⚠️ Текущие данные будут заменены.')) {
     event.target.value = '';
     return;
   }
@@ -1523,15 +1476,13 @@ function restoreBackup(event) {
   reader.onload = function(e) {
     try {
       const data = JSON.parse(e.target.result);
-      if (!data || typeof data !== 'object') throw new Error('Неверный формат файла');
+      if (!data || typeof data !== 'object') throw new Error('Неверный формат');
       const packages = data.packages || data.db || {};
-      const h = data.history || [];
-      const r = data.recent || [];
-      if (typeof packages !== 'object') throw new Error('В файле нет данных о посылках');
-
-      db = packages; history = h; recent = r;
+      if (typeof packages !== 'object') throw new Error('Нет данных о посылках');
+      db = packages;
+      history = data.history || [];
+      recent = data.recent || [];
       saveToFirestore();
-
       showToast('Загружено ' + Object.keys(packages).length + ' треков', 'success');
       renderPackages();
       renderHistory();
@@ -1548,15 +1499,13 @@ function restoreBackup(event) {
 function exportToExcel() {
   const dbData = loadDB();
   const keys = Object.keys(dbData);
-  if (keys.length === 0) { showToast('Нет данных для экспорта', 'warning'); return; }
+  if (keys.length === 0) { showToast('Нет данных', 'warning'); return; }
 
   keys.sort(function(a, b) {
-    const ta = (dbData[a] && dbData[a].addedAt) || 0;
-    const tb = (dbData[b] && dbData[b].addedAt) || 0;
-    return tb - ta;
+    return ((dbData[b] && dbData[b].addedAt) || 0) - ((dbData[a] && dbData[a].addedAt) || 0);
   });
 
-  const headers = ['№', 'Трек-номер', 'Для кого', 'Вес (кг)', 'Количество (шт)', 'Что в треке', 'Дата добавления'];
+  const headers = ['№', 'Трек-номер', 'Для кого', 'Вес (кг)', 'Количество (шт)', 'Что в треке', 'Дата'];
   const rows = keys.map(function(k, i) {
     const p = dbData[k];
     let dateStr = '';
@@ -1575,10 +1524,8 @@ function exportToExcel() {
     return s;
   }
 
-  const lines = [];
-  lines.push(headers.map(escapeCSV).join(';'));
+  const lines = [headers.map(escapeCSV).join(';')];
   rows.forEach(function(row) { lines.push(row.map(escapeCSV).join(';')); });
-
   const csv = '\uFEFF' + lines.join('\n');
   const now = new Date();
   const dateStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
@@ -1596,22 +1543,17 @@ function exportToExcel() {
 // ==================== ЭКСПОРТ ТОВАРОВ ЧЕЛОВЕКА ====================
 function exportPersonToExcel(personName) {
   const dbData = loadDB();
-  const allKeys = Object.keys(dbData);
-  const keys = allKeys.filter(function(k) {
+  const keys = Object.keys(dbData).filter(function(k) {
     return (dbData[k].person || 'Без имени').trim() === personName;
   });
-
   if (keys.length === 0) { showToast('У этого человека нет треков', 'warning'); return; }
 
   keys.sort(function(a, b) {
-    const ta = (dbData[a] && dbData[a].addedAt) || 0;
-    const tb = (dbData[b] && dbData[b].addedAt) || 0;
-    return tb - ta;
+    return ((dbData[b] && dbData[b].addedAt) || 0) - ((dbData[a] && dbData[a].addedAt) || 0);
   });
 
-  const headers = ['№', 'Трек-номер', 'Вес (кг)', 'Количество (шт)', 'Что в треке', 'Дата добавления'];
-  let totalWeight = 0;
-  let totalCount = 0;
+  const headers = ['№', 'Трек-номер', 'Вес (кг)', 'Количество (шт)', 'Что в треке', 'Дата'];
+  let totalWeight = 0, totalCount = 0;
 
   const rows = keys.map(function(k, i) {
     const p = dbData[k];
@@ -1633,8 +1575,7 @@ function exportPersonToExcel(personName) {
     return s;
   }
 
-  const lines = [];
-  lines.push(headers.map(escapeCSV).join(';'));
+  const lines = [headers.map(escapeCSV).join(';')];
   rows.forEach(function(row) { lines.push(row.map(escapeCSV).join(';')); });
   lines.push('');
   lines.push(escapeCSV('ИТОГО:') + ';' + escapeCSV(keys.length + ' треков') + ';' + escapeCSV(formatTotalWeight(totalWeight)) + ';' + escapeCSV(totalCount) + ';;');
@@ -1653,7 +1594,7 @@ function exportPersonToExcel(personName) {
   link.download = 'posylki_' + safeName + '_' + dateStr + '.csv';
   link.click();
   URL.revokeObjectURL(url);
-  showToast('Экспортировано ' + keys.length + ' треков ' + personName, 'success');
+  showToast('Экспортировано ' + keys.length + ' треков', 'success');
 }
 
 // ==================== УТИЛИТЫ ====================
@@ -1670,10 +1611,8 @@ function escapeAttr(s) {
 window.addEventListener('load', function() {
   loadTheme();
   // Показываем экран загрузки, пока Firebase проверяет сессию
-  var loadingEl = document.getElementById('loading-screen');
-  var loginEl = document.getElementById('login-screen');
-  if (loadingEl) loadingEl.style.display = 'flex';
-  if (loginEl) loginEl.style.display = 'none';
+  document.getElementById('loading-screen').style.display = 'flex';
+  document.getElementById('login-screen').style.display = 'none';
 });
 </script>
 
