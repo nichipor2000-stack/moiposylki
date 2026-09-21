@@ -784,14 +784,17 @@ function switchPkgTab(tab) {
   const panelTracks = document.getElementById('pkg-panel-tracks');
   if (!tabPersons || !panelPersons) return;
 
+  const activeStyle = 'flex:1; padding:12px 8px; text-align:center; background:linear-gradient(135deg, #2563eb, #3b82f6); color:white; border-radius:14px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 4px 12px rgba(37, 99, 235, 0.35); user-select:none; border:1.5px solid transparent;';
+  const inactiveStyle = 'flex:1; padding:12px 8px; text-align:center; background:var(--card); color:var(--text-secondary); border-radius:14px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:var(--shadow); user-select:none; border:1.5px solid var(--border);';
+
   if (tab === 'persons') {
-    tabPersons.classList.add('active');
-    tabTracks.classList.remove('active');
+    tabPersons.setAttribute('style', activeStyle);
+    tabTracks.setAttribute('style', inactiveStyle);
     panelPersons.style.display = 'block';
     panelTracks.style.display = 'none';
   } else {
-    tabPersons.classList.remove('active');
-    tabTracks.classList.add('active');
+    tabPersons.setAttribute('style', inactiveStyle);
+    tabTracks.setAttribute('style', activeStyle);
     panelPersons.style.display = 'none';
     panelTracks.style.display = 'block';
   }
