@@ -547,6 +547,7 @@ function updateUserUI(user) {
 }
 
 function showLogin() {
+  document.getElementById('loading-screen').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('app-header').style.display = 'none';
   document.getElementById('main-content').style.display = 'none';
