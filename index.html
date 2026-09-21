@@ -1832,6 +1832,7 @@ async function loadAdminPanel() {
           '<div style="font-size:15px; font-weight:800; color:var(--primary-dark); margin-bottom:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">' + escapeHtml(u.name) + (isMe ? ' <span style="font-size:11px; color:#f59e0b;">(вы)</span>' : '') + '</div>' +
           '<div style="font-size:11px; color:var(--text-secondary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">' + escapeHtml(u.email) + '</div>' +
           '<div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">📦 ' + u.packageCount + ' треков · ⚖️ ' + formatWeight(u.weight) + ' кг</div>' +
+          '<div style="font-size:11px; color:var(--text-secondary); margin-top:2px;">' + u.deviceIcon + ' ' + escapeHtml(u.device) + '</div>' +
           '<div style="font-size:10px; color:var(--text-secondary); margin-top:2px;">🕒 ' + dateStr + '</div>' +
           (isMe ? '' : '<button class="danger" onclick="deleteUser(\'' + escapeAttr(u.uid) + '\', \'' + escapeAttr(u.email || '') + '\', \'' + escapeAttr(u.name || '') + '\')" style="margin-top:10px; padding:8px 14px; font-size:12px;">🗑 Удалить пользователя</button>') +
         '</div>' +
