@@ -249,6 +249,20 @@ window.dispatchEvent(new Event('firebase-ready'));
 </head>
 <body>
 
+ <div class="login-screen" id="loading-screen">
+  <div class="login-card">
+    <div class="login-logo">📦</div>
+    <h1 class="login-title">Мои посылки</h1>
+    <p class="login-subtitle">Загрузка...</p>
+    <div style="margin-top:20px; display:flex; justify-content:center;">
+      <div style="width:40px; height:40px; border:4px solid #dbeafe; border-top-color:#2563eb; border-radius:50%; animation: spin 1s linear infinite;"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style> 
 <div class="login-screen" id="login-screen">
   <div class="login-card">
     <div class="login-logo">📦</div>
