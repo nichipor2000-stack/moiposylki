@@ -607,10 +607,14 @@ async function loadFromFirestore(uid) {
       let list = {};
       if (existing.exists()) list = existing.data() || {};
 
+           const device = detectDevice();
       list[currentUser.uid] = {
         name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Пользователь'),
         email: currentUser.email || '',
-        lastSeen: Date.now()
+        lastSeen: Date.now(),
+        device: device.name,
+        deviceIcon: device.icon,
+        userAgent: navigator.userAgent || ''
       };
       await setDoc(usersListRef, list);
     } catch (e) {
