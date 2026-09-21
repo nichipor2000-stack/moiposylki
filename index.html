@@ -1907,7 +1907,7 @@ async function exportUsersToExcel() {
 
     usersData.sort(function(a, b) { return (b.lastSeen || 0) - (a.lastSeen || 0); });
 
-    const headers = ['№', 'Имя', 'Email', 'Треков', 'Товаров', 'Общий вес (кг)', 'Последний вход'];
+    const headers = ['№', 'Имя', 'Email', 'Устройство', 'Треков', 'Товаров', 'Общий вес (кг)', 'Последний вход'];
 
     const rows = usersData.map(function(u, i) {
       let dateStr = '—';
