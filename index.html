@@ -1934,7 +1934,7 @@ async function exportUsersToExcel() {
     const totalItemsAll = usersData.reduce(function(s, u) { return s + u.totalItems; }, 0);
 
     lines.push('');
-    lines.push(escapeCSV('ИТОГО:') + ';' + escapeCSV(usersData.length + ' пользователей') + ';;' + escapeCSV(totalPackages) + ';' + escapeCSV(totalItemsAll) + ';' + escapeCSV(formatTotalWeight(totalWeight)) + ';');
+    lines.push(escapeCSV('ИТОГО:') + ';' + escapeCSV(usersData.length + ' пользователей') + ';;;' + escapeCSV(totalPackages) + ';' + escapeCSV(totalItemsAll) + ';' + escapeCSV(formatTotalWeight(totalWeight)) + ';');
     lines.push(escapeCSV('Всего пользователей:') + ';' + escapeCSV(usersData.length) + ';;;;;');
     lines.push(escapeCSV('Всего треков:') + ';' + escapeCSV(totalPackages) + ';;;;;');
     lines.push(escapeCSV('Всего товаров:') + ';' + escapeCSV(totalItemsAll) + ';;;;;');
