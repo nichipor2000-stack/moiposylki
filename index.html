@@ -414,20 +414,18 @@ window.dispatchEvent(new Event('firebase-ready'));
     <button class="danger hidden" id="clear-history-btn" onclick="clearHistory()" style="margin-top:12px;">🗑 Очистить историю</button>
   </div>
 
-    <div id="screen-packages" class="screen hidden">
+     <div id="screen-packages" class="screen hidden">
     <input type="file" id="restore-input" accept=".json,application/json" style="display:none;" onchange="restoreBackup(event)">
 
     <div class="stats" id="packages-stats"></div>
     <input id="packages-search" placeholder="🔍 Поиск по треку, имени или описанию..." autocomplete="off" oninput="renderPackages()" style="margin-bottom:14px;">
 
-    <div class="tabs" style="margin-bottom:14px;">
-      <div class="tab active" id="pkg-tab-persons" onclick="switchPkgTab('persons')">
-        <span class="icon">👥</span>
-        Люди
+    <div style="display:flex; gap:8px; margin-bottom:14px;">
+      <div id="pkg-tab-persons" onclick="switchPkgTab('persons')" style="flex:1; padding:12px 8px; text-align:center; background:linear-gradient(135deg, #2563eb, #3b82f6); color:white; border-radius:14px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 4px 12px rgba(37, 99, 235, 0.35); user-select:none;">
+        👥 Люди
       </div>
-      <div class="tab" id="pkg-tab-tracks" onclick="switchPkgTab('tracks')">
-        <span class="icon">📦</span>
-        Треки
+      <div id="pkg-tab-tracks" onclick="switchPkgTab('tracks')" style="flex:1; padding:12px 8px; text-align:center; background:var(--card); color:var(--text-secondary); border-radius:14px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:var(--shadow); user-select:none; border:1.5px solid var(--border);">
+        📦 Треки
       </div>
     </div>
 
