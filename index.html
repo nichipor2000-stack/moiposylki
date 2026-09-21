@@ -1894,13 +1894,14 @@ async function exportUsersToExcel() {
         }
       } catch (e) { console.warn('Could not load user', uid, e); }
 
-      usersData.push({
+        usersData.push({
         name: info.name || 'Без имени',
         email: info.email || '—',
         lastSeen: info.lastSeen || 0,
         packageCount: packageCount,
         weight: weight,
-        totalItems: totalItems
+        totalItems: totalItems,
+        device: info.device || 'Неизвестно'
       });
     }
 
