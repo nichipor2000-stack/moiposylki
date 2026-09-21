@@ -1798,13 +1798,15 @@ async function loadAdminPanel() {
       totalPackages += packageCount;
       totalWeight += weight;
 
-      usersData.push({
+           usersData.push({
         uid: uid,
         name: info.name || 'Без имени',
         email: info.email || '—',
         lastSeen: info.lastSeen || 0,
         packageCount: packageCount,
-        weight: weight
+        weight: weight,
+        device: info.device || 'Неизвестно',
+        deviceIcon: info.deviceIcon || '❓'
       });
     }
 
