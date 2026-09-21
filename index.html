@@ -445,7 +445,7 @@ window.dispatchEvent(new Event('firebase-ready'));
     <div id="person-detail-content"></div>
   </div>
 
-   <div id="screen-admin" class="screen hidden">
+  <div id="screen-admin" class="screen hidden">
     <div class="card" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">
       <h3 style="color:#78350f;">👑 Админ-панель</h3>
       <p style="font-size:13px;color:#78350f;">Видно только вам. Другие пользователи этот раздел не видят.</p>
@@ -539,6 +539,13 @@ async function logoutUser() {
   if (!confirm('Выйти из аккаунта?')) return;
   try {
     const { auth, signOut } = window.FB;
+    db = {};
+    history = [];
+    recent = [];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({}));
+    localStorage.setItem(HISTORY_KEY, JSON.stringify([]));
+    localStorage.setItem(RECENT_KEY, JSON.stringify([]));
+    localStorage.removeItem('last_uid');
     await signOut(auth);
   } catch (e) {
     showToast('Ошибка выхода', 'error');
@@ -561,7 +568,6 @@ function updateUserUI(user) {
     avatarEl.textContent = initial;
   }
 
-  // 👑 Показываем админ-панель только для админа
   const adminMenuItem = document.getElementById('admin-menu-item');
   if (adminMenuItem) {
     if (email === ADMIN_EMAIL) {
@@ -594,7 +600,7 @@ async function loadFromFirestore(uid) {
   try {
     const { db: fdb, doc, getDoc, setDoc } = window.FB;
 
-    // 📝 Записываем себя в общий список пользователей (для админ-панели)
+    // 📝 Записываем себя в общий список пользователей
     try {
       const usersListRef = doc(fdb, 'system', 'usersList');
       const existing = await getDoc(usersListRef);
@@ -614,7 +620,12 @@ async function loadFromFirestore(uid) {
     const ref = doc(fdb, 'users', uid, 'data', 'main');
     const snap = await getDoc(ref);
 
+    // 🔑 Проверяем, тот же ли это пользователь, что входил в прошлый раз
+    const lastUid = localStorage.getItem('last_uid');
+    const sameUser = (lastUid === uid);
+
     if (snap.exists()) {
+      // В Firestore есть данные — загружаем их
       const data = snap.data() || {};
       db = data.packages || {};
       history = data.history || [];
@@ -623,22 +634,39 @@ async function loadFromFirestore(uid) {
       localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
       localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
     } else {
-      const localDB = localStorage.getItem(STORAGE_KEY);
-      const localHistory = localStorage.getItem(HISTORY_KEY);
-      const localRecent = localStorage.getItem(RECENT_KEY);
+      // В Firestore пусто
+      if (sameUser) {
+        // Тот же пользователь — переносим из localStorage
+        const localDB = localStorage.getItem(STORAGE_KEY);
+        const localHistory = localStorage.getItem(HISTORY_KEY);
+        const localRecent = localStorage.getItem(RECENT_KEY);
 
-      if (localDB || localHistory || localRecent) {
-        try { db = JSON.parse(localDB || '{}'); } catch(e) { db = {}; }
-        try { history = JSON.parse(localHistory || '[]'); } catch(e) { history = []; }
-        try { recent = JSON.parse(localRecent || '[]'); } catch(e) { recent = []; }
+        if (localDB || localHistory || localRecent) {
+          try { db = JSON.parse(localDB || '{}'); } catch(e) { db = {}; }
+          try { history = JSON.parse(localHistory || '[]'); } catch(e) { history = []; }
+          try { recent = JSON.parse(localRecent || '[]'); } catch(e) { recent = []; }
 
-        const count = Object.keys(db).length;
-        if (count > 0) {
-          await setDoc(ref, { packages: db, history: history, recent: recent, updatedAt: Date.now() });
-          showToast('Перенесено ' + count + ' треков в облако', 'success');
+          const count = Object.keys(db).length;
+          if (count > 0) {
+            await setDoc(ref, { packages: db, history: history, recent: recent, updatedAt: Date.now() });
+            showToast('Перенесено ' + count + ' треков в облако', 'success');
+          }
+        } else {
+          db = {}; history = []; recent = [];
         }
+      } else {
+        // 🔴 НОВЫЙ ПОЛЬЗОВАТЕЛЬ — ничего не переносим!
+        db = {};
+        history = [];
+        recent = [];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({}));
+        localStorage.setItem(HISTORY_KEY, JSON.stringify([]));
+        localStorage.setItem(RECENT_KEY, JSON.stringify([]));
       }
     }
+
+    // 📌 Запоминаем UID
+    localStorage.setItem('last_uid', uid);
 
     renderRecentScans();
     renderHistory();
@@ -653,9 +681,18 @@ async function loadFromFirestore(uid) {
 
 async function saveToFirestore() {
   if (!currentUser) return;
+
+  // Проверка совпадения UID
+  const lastUid = localStorage.getItem('last_uid');
+  if (lastUid && lastUid !== currentUser.uid) {
+    console.warn('UID mismatch — пропускаем сохранение');
+    return;
+  }
+
   localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
   localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
   localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
+
   try {
     const { db: fdb, doc, setDoc } = window.FB;
     const ref = doc(fdb, 'users', currentUser.uid, 'data', 'main');
@@ -1753,7 +1790,7 @@ async function loadAdminPanel() {
         const d = new Date(u.lastSeen);
         dateStr = d.toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' });
       }
-            const isMe = currentUser && currentUser.uid === u.uid;
+      const isMe = currentUser && currentUser.uid === u.uid;
       return '<div class="card" style="padding:14px; display:flex; align-items:flex-start; gap:14px;">' +
         '<div style="width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; background:' + color + '; flex-shrink:0;">' + avatar + '</div>' +
         '<div style="flex:1; min-width:0;">' +
@@ -1774,6 +1811,7 @@ async function loadAdminPanel() {
     showToast('Ошибка: ' + e.message, 'error');
   }
 }
+
 // ==================== ЭКСПОРТ ПОЛЬЗОВАТЕЛЕЙ ====================
 async function exportUsersToExcel() {
   if (!currentUser || currentUser.email !== ADMIN_EMAIL) {
@@ -1797,7 +1835,6 @@ async function exportUsersToExcel() {
       return;
     }
 
-    // Собираем данные по каждому пользователю
     const usersData = [];
 
     for (let i = 0; i < uids.length; i++) {
@@ -1831,31 +1868,17 @@ async function exportUsersToExcel() {
       });
     }
 
-    // Сортируем по дате (новые сверху)
     usersData.sort(function(a, b) { return (b.lastSeen || 0) - (a.lastSeen || 0); });
 
-    // Заголовки
     const headers = ['№', 'Имя', 'Email', 'Треков', 'Товаров', 'Общий вес (кг)', 'Последний вход'];
 
-    // Строки
     const rows = usersData.map(function(u, i) {
       let dateStr = '—';
       if (u.lastSeen) {
         const d = new Date(u.lastSeen);
-        dateStr = d.toLocaleString('ru-RU', {
-          day: '2-digit', month: '2-digit', year: 'numeric',
-          hour: '2-digit', minute: '2-digit'
-        });
+        dateStr = d.toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
       }
-      return [
-        i + 1,
-        u.name,
-        u.email,
-        u.packageCount,
-        u.totalItems,
-        formatTotalWeight(u.weight),
-        dateStr
-      ];
+      return [i + 1, u.name, u.email, u.packageCount, u.totalItems, formatTotalWeight(u.weight), dateStr];
     });
 
     function escapeCSV(val) {
@@ -1869,7 +1892,6 @@ async function exportUsersToExcel() {
     const lines = [headers.map(escapeCSV).join(';')];
     rows.forEach(function(row) { lines.push(row.map(escapeCSV).join(';')); });
 
-    // Итоги внизу
     const totalPackages = usersData.reduce(function(s, u) { return s + u.packageCount; }, 0);
     const totalWeight = usersData.reduce(function(s, u) { return s + u.weight; }, 0);
     const totalItemsAll = usersData.reduce(function(s, u) { return s + u.totalItems; }, 0);
@@ -1901,7 +1923,8 @@ async function exportUsersToExcel() {
     showSync(false);
   }
 }
-  // ==================== УДАЛЕНИЕ ПОЛЬЗОВАТЕЛЯ ====================
+
+// ==================== УДАЛЕНИЕ ПОЛЬЗОВАТЕЛЯ ====================
 async function deleteUser(uid, email, name) {
   if (!currentUser || currentUser.email !== ADMIN_EMAIL) {
     showToast('Доступ запрещён', 'error');
@@ -1913,12 +1936,10 @@ async function deleteUser(uid, email, name) {
     return;
   }
 
-  // Первое подтверждение
   if (!confirm('⚠️ ВНИМАНИЕ!\n\nВы собираетесь удалить пользователя:\n\n👤 ' + name + '\n📧 ' + email + '\n\nБудут удалены:\n• Все его треки\n• Вся история\n• Сам аккаунт\n\nЭто действие НЕОБРАТИМО!\n\nПродолжить?')) {
     return;
   }
 
-  // Второе подтверждение — ввод слова
   const input = prompt('Для подтверждения введите слово УДАЛИТЬ (заглавными буквами):');
   if (input !== 'УДАЛИТЬ') {
     showToast('Отменено', 'info');
@@ -1928,12 +1949,8 @@ async function deleteUser(uid, email, name) {
   showSync(true);
 
   try {
-    const { db: fdb, doc, getDoc, setDoc, deleteDoc, collection, getDocs } = window.FB;
+    const { db: fdb, doc, getDoc, setDoc } = window.FB;
 
-    // Если функции deleteDoc/collection/getDocs не подключены — используем setDoc для очистки
-    // Основная очистка: удаляем данные пользователя
-
-    // 1. Очищаем данные пользователя (перезаписываем пустыми)
     try {
       const userDataRef = doc(fdb, 'users', uid, 'data', 'main');
       await setDoc(userDataRef, { packages: {}, history: [], recent: [], deleted: true, deletedAt: Date.now() });
@@ -1941,7 +1958,6 @@ async function deleteUser(uid, email, name) {
       console.warn('Could not clear user data', e);
     }
 
-    // 2. Убираем из списка пользователей
     const usersListRef = doc(fdb, 'system', 'usersList');
     const snap = await getDoc(usersListRef);
     if (snap.exists()) {
@@ -1951,8 +1967,6 @@ async function deleteUser(uid, email, name) {
     }
 
     showToast('Пользователь удалён: ' + email, 'success');
-
-    // Обновляем админку
     loadAdminPanel();
   } catch (e) {
     console.error(e);
@@ -1961,6 +1975,7 @@ async function deleteUser(uid, email, name) {
     showSync(false);
   }
 }
+
 // ==================== УТИЛИТЫ ====================
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, function(c) {
