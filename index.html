@@ -778,7 +778,27 @@ function dismissToast(toast) {
 }
 
 // ==================== МЕНЮ ====================
-function switchMenu(menu) {
+// ==================== ВКЛАДКИ ПОСЫЛОК ====================
+function switchPkgTab(tab) {
+  const tabPersons = document.getElementById('pkg-tab-persons');
+  const tabTracks = document.getElementById('pkg-tab-tracks');
+  const panelPersons = document.getElementById('pkg-panel-persons');
+  const panelTracks = document.getElementById('pkg-panel-tracks');
+  if (!tabPersons || !panelPersons) return;
+
+  if (tab === 'persons') {
+    tabPersons.classList.add('active');
+    tabTracks.classList.remove('active');
+    panelPersons.style.display = 'block';
+    panelTracks.style.display = 'none';
+  } else {
+    tabPersons.classList.remove('active');
+    tabTracks.classList.add('active');
+    panelPersons.style.display = 'none';
+    panelTracks.style.display = 'block';
+  }
+}
+  function switchMenu(menu) {
   document.querySelectorAll('.menu-item').forEach(function(m) { m.classList.remove('active'); });
   const menuEl = document.querySelector('.menu-item[data-menu="' + menu + '"]');
   if (menuEl) menuEl.classList.add('active');
