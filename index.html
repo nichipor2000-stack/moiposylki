@@ -149,14 +149,10 @@ window.dispatchEvent(new Event('firebase-ready'));
   .person-detail-sub { font-size: 13px; opacity: 0.85; }
   .person-detail-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
   .person-detail-stats .stat-card { background: white; box-shadow: var(--shadow); }
-  
   .track-list-item { background: white; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; box-shadow: var(--shadow); border-left: 5px solid var(--primary); display: flex; align-items: flex-start; gap: 12px; }
-  .track-list-item.has-track { border-left-color: var(--success); background: linear-gradient(to right, #f0fdf4, white 20%); }
-  .track-list-item.no-track { border-left-color: var(--danger); background: linear-gradient(to right, #fef2f2, white 20%); }
-  
   .track-number { background: var(--primary); color: white; min-width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0; }
   .track-content { flex: 1; min-width: 0; }
-  .track-code { font-family: 'Courier New', monospace; font-weight: 700; font-size: 14px; color: var(--primary-dark); word-break: break-all; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; }
+  .track-code { font-family: 'Courier New', monospace; font-weight: 700; font-size: 14px; color: var(--primary-dark); word-break: break-all; margin-bottom: 6px; }
   .track-meta { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
   .track-meta strong { color: var(--text); font-weight: 700; }
 
@@ -217,8 +213,6 @@ window.dispatchEvent(new Event('firebase-ready'));
   body.dark .result-box .result-value { color: #ffffff; font-weight: 900; }
   body.dark .result-box .result-sub { color: #cbd5e1; }
   body.dark .recent-item, body.dark .track-list-item { background: #1e293b; color: #ffffff; }
-  body.dark .track-list-item.has-track { background: linear-gradient(to right, rgba(20, 83, 45, 0.6) 0%, #1e293b 25%); }
-  body.dark .track-list-item.no-track { background: linear-gradient(to right, rgba(127, 29, 29, 0.6) 0%, #1e293b 25%); }
   body.dark .track-code { color: #ffffff; font-weight: 800; }
   body.dark .track-meta { color: #cbd5e1; }
   body.dark .track-meta strong { color: #ffffff; font-weight: 800; }
@@ -248,22 +242,18 @@ window.dispatchEvent(new Event('firebase-ready'));
   body.dark .search-clear { background: #475569; color: #ffffff; }
   body.dark .filter-chip { background: #1e293b; color: #cbd5e1; border-color: #475569; }
   body.dark .archive-card { background: #1e293b; }
-  body.dark .archive-pkg { background: #0f172a; }
 
   .hidden { display: none !important; }
 
-  /* Поиск */
   .search-box { position: relative; margin-bottom: 14px; }
   .search-box input { margin: 0; padding-right: 46px; }
   .search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; background: var(--border); color: var(--text); font-size: 14px; font-weight: 700; display: none; align-items: center; justify-content: center; cursor: pointer; border: none; padding: 0; margin: 0; box-shadow: none; }
   .search-clear.visible { display: flex; }
 
-  /* Фильтры */
   .filter-row { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 12px; padding-bottom: 4px; }
   .filter-chip { padding: 9px 14px; border-radius: 20px; background: var(--card); border: 1.5px solid var(--border); color: var(--text-secondary); font-size: 12px; font-weight: 700; white-space: nowrap; cursor: pointer; user-select: none; }
   .filter-chip.active { background: linear-gradient(135deg, #2563eb, #3b82f6); color: white; border-color: transparent; }
 
-  /* Карточки треков */
   .pkg-card { background: var(--card); border-radius: 14px; padding: 14px; margin-bottom: 10px; box-shadow: var(--shadow); border-left: 5px solid var(--primary); position: relative; }
   .pkg-card.has-track { border-left-color: var(--success); }
   .pkg-card.no-track { border-left-color: var(--danger); }
@@ -280,7 +270,6 @@ window.dispatchEvent(new Event('firebase-ready'));
   .pkg-actions { display: flex; gap: 6px; margin-top: 10px; }
   .pkg-actions button { width: auto; flex: 1; padding: 9px 14px; font-size: 13px; margin: 0; }
 
-  /* Архив */
   .archive-card { background: var(--card); border-radius: 14px; padding: 14px; margin-bottom: 10px; cursor: pointer; box-shadow: var(--shadow); border-left: 5px solid var(--primary); }
   .archive-card .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .archive-card .month { font-size: 18px; font-weight: 800; color: var(--primary-dark); }
@@ -290,8 +279,6 @@ window.dispatchEvent(new Event('firebase-ready'));
   .close-month-box h3 { font-size: 17px; font-weight: 800; margin-bottom: 8px; }
   .close-month-box p { font-size: 13px; opacity: 0.9; margin-bottom: 14px; line-height: 1.5; }
   .close-month-box button { background: white; color: var(--primary-dark); font-weight: 800; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-  .archive-pkg { background: var(--bg); border-radius: 10px; padding: 12px; margin-bottom: 8px; font-size: 13px; border: 1px solid var(--border); }
-  .archive-pkg .a-track { font-weight: 800; color: var(--primary-dark); margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; gap: 8px; font-family: 'Courier New', monospace; word-break: break-all; }
 </style>
 </head>
 <body>
@@ -2408,11 +2395,11 @@ async function deleteUser(uid, email, name) {
       await setDoc(usersListRef, list);
     }
 
-    show + e.message, 'Toast('Пользовательerror удалён: ' + email, 'success');
+    showToast('Пользователь удалён: ' + email, 'success');
     loadAdminPanel();
   } catch (e) {
     console.error(e);
-    showToast('Ошибка: '');
+    showToast('Ошибка: ' + e.message, 'error');
   } finally {
     showSync(false);
   }
